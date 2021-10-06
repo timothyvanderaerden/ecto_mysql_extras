@@ -1,5 +1,8 @@
 # Ecto MySQL Extras
 
+[![CI](https://github.com/timothyvanderaerden/ecto_mysql_extras/actions/workflows/ci.yml/badge.svg)](https://github.com/optimise-group/bifrost/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/timothyvanderaerden/ecto_mysql_extras/branch/main/graph/badge.svg?token=IJMNEMI6CE)](https://codecov.io/gh/timothyvanderaerden/ecto_mysql_extras)
+
 This library provides performance insight information on MySQL (and MariaDB) databases.
 It's heavily based upon [Ecto PSQL Extras](https://github.com/pawurb/ecto_psql_extras), it reuses
 most of the design.
@@ -51,7 +54,6 @@ To view all available queries:
 ```elixir
 EctoMySQLExtras.queries()
 ```
-
 
 ## Ecto MySQL Extras differences
 
