@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  mysql8:
+    image: mysql:8.0
+    environment:
+      MYSQL_USER: "mysql"
+      MYSQL_PASSWORD: "mysql"
+      MYSQL_DATABASE: "ecto_mysql_extras_test"
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./docker/init:/docker-entrypoint-initdb.d
+
+  mariadb10:
+    image: mariadb:10
+    environment:
+      MYSQL_USER: "mysql"
+      MYSQL_PASSWORD: "mysql"
+      MYSQL_DATABASE: "ecto_mysql_extras_test"
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./docker/init:/docker-entrypoint-initdb.d
