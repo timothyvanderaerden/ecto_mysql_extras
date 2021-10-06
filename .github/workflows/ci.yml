@@ -1,0 +1,318 @@
+name: CI
+
+# Notes:
+#   * secrets.CACHE_VERSION: Is a defined secret with a UUIDv4 as version,
+#     the reason for this is because there is currently no other way of resetting the cache.
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  MYSQL_USER: mysql
+  MYSQL_PASSWORD: mysql
+  MYSQL_DATABASE: ecto_mysql_extras_test
+  MYSQL_HOST: localhost
+  MYSQL_ROOT_PASSWORD: mysql_root_password
+
+jobs:
+  setup:
+    name: Setup / OTP ${{ matrix.otp }} / Elixir ${{ matrix.elixir }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        otp: ["24"]
+        elixir: ["1.12"]
+
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v2
+
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+
+      - name: Retrieve dependencies cache
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+      - name: Install dependencies
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: |
+          mix deps.get
+          mix deps.compile
+
+      - name: Create PLTs
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: mix dialyzer --plt
+
+  lint:
+    name: Lint / OTP ${{ matrix.otp }} / Elixir ${{ matrix.elixir }}
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        otp: ["24"]
+        elixir: ["1.12"]
+
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v2
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ matrix.otp }}
+          elixir-version: ${{ matrix.elixir }}
+
+      - name: Retrieve dependencies cache
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+      - name: Check format
+        run: mix format --check-formatted
+
+  credo:
+    name: Credo / OTP ${{ matrix.otp }} / Elixir ${{ matrix.elixir }}
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        otp: ["24"]
+        elixir: ["1.12"]
+
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v2
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ matrix.otp }}
+          elixir-version: ${{ matrix.elixir }}
+
+      - name: Retrieve dependencies cache
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+      - name: Credo
+        run: mix credo
+
+  dialyzer:
+    name: Dialyzer / OS ${{ matrix.os }} / OTP ${{ matrix.otp }} / Elixir ${{ matrix.elixir }}
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        otp: ["24"]
+        elixir: ["1.12"]
+
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v2
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ matrix.otp }}
+          elixir-version: ${{ matrix.elixir }}
+
+      - name: Retrieve dependencies cache
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+      - name: Dialyzer
+        run: mix dialyzer --no-check
+
+  mysql8_test:
+    name: Test bifrost / OTP ${{ matrix.otp }} / Elixir ${{ matrix.elixir }}
+    runs-on: ubuntu-latest
+    needs: dialyzer
+    strategy:
+      fail-fast: false
+      matrix:
+        otp: ["24"]
+        elixir: ["1.12"]
+    env:
+      MIX_ENV: test
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_USER: ${{ env.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+          MYSQL_ROOT_HOST: "%"
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 3306:3306
+
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v2
+
+      - name: Initialize database
+        run: |
+          mysql -uroot -p${{ env.MYSQL_ROOT_PASSWORD }} -h127.0.0.1 < docker/init/init.sql
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ matrix.otp }}
+          elixir-version: ${{ matrix.elixir }}
+
+      - name: Retrieve dependencies cache
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+      - name: Run tests
+        run: mix test
+
+  mariadb10_test:
+    name: Test bifrost / OTP ${{ matrix.otp }} / Elixir ${{ matrix.elixir }}
+    runs-on: ubuntu-latest
+    needs: dialyzer
+    strategy:
+      fail-fast: false
+      matrix:
+        otp: ["24"]
+        elixir: ["1.12"]
+    env:
+      MIX_ENV: test
+    services:
+      mysql:
+        image: mariadb:10
+        env:
+          MYSQL_USER: ${{ env.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+          MYSQL_ROOT_HOST: "%"
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 3306:3306
+
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v2
+
+      - name: Initialize database
+        run: |
+          mysql -uroot -p${{ env.MYSQL_ROOT_PASSWORD }} -h127.0.0.1 < docker/init/init.sql
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ matrix.otp }}
+          elixir-version: ${{ matrix.elixir }}
+
+      - name: Retrieve dependencies cache
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+      - name: Run tests
+        run: mix test
+
+  test_coverage:
+    name: Test Coverage / OTP ${{ matrix.otp }} / Elixir ${{ matrix.elixir }}
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    needs: [mysql8_test, mariadb10_test]
+    strategy:
+      fail-fast: false
+      matrix:
+        otp: ["24"]
+        elixir: ["1.12"]
+    env:
+      MIX_ENV: test
+    services:
+      mysql:
+        image: mariadb:10
+        env:
+          MYSQL_USER: ${{ env.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+          MYSQL_ROOT_HOST: "%"
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 3306:3306
+
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v2
+
+      - name: Initialize database
+        run: |
+          mysql -uroot -p${{ env.MYSQL_ROOT_PASSWORD }} -h127.0.0.1 < docker/init/init.sql
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ matrix.otp }}
+          elixir-version: ${{ matrix.elixir }}
+
+      - name: Retrieve dependencies cache
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+      - name: Run coverage
+        run: mix coveralls.json
+
+      - name: Upload test coverage
+        id: codecov
+        run: bash <(curl -s https://codecov.io/bash)
