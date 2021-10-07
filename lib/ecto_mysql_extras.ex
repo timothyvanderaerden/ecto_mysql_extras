@@ -104,7 +104,31 @@ defmodule EctoMySQLExtras do
       |> Enum.map(&format_value/1)
     end
 
-    defp format_value({string, :string}), do: String.replace(string, "\n", "")
+    def format_value({integer, :bytes}) when is_integer(integer), do: format_bytes(integer)
+    def format_value({string, :string}), do: String.replace(string, "\n", "")
+    def format_value({other, _}), do: inspect(other)
+
+    defp format_bytes(bytes) do
+      cond do
+        bytes >= memory_unit(:TB) -> format_bytes(bytes, :TB)
+        bytes >= memory_unit(:GB) -> format_bytes(bytes, :GB)
+        bytes >= memory_unit(:MB) -> format_bytes(bytes, :MB)
+        bytes >= memory_unit(:KB) -> format_bytes(bytes, :KB)
+        true -> format_bytes(bytes, :B)
+      end
+    end
+
+    defp format_bytes(bytes, :B) when is_integer(bytes), do: "#{bytes} bytes"
+
+    defp format_bytes(bytes, unit) when is_integer(bytes) do
+      value = bytes / memory_unit(unit)
+      "#{:erlang.float_to_binary(value, decimals: 1)} #{unit}"
+    end
+
+    defp memory_unit(:TB), do: :math.pow(1024, 4) |> round()
+    defp memory_unit(:GB), do: :math.pow(1024, 3) |> round()
+    defp memory_unit(:MB), do: :math.pow(1024, 2) |> round()
+    defp memory_unit(:KB), do: 1024
   else
     defp format(:ascii, _info, _result) do
       IO.warn("""
