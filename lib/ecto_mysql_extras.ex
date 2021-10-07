@@ -125,9 +125,9 @@ defmodule EctoMySQLExtras do
       "#{:erlang.float_to_binary(value, decimals: 1)} #{unit}"
     end
 
-    defp memory_unit(:TB), do: :math.pow(1024, 4) |> round()
-    defp memory_unit(:GB), do: :math.pow(1024, 3) |> round()
-    defp memory_unit(:MB), do: :math.pow(1024, 2) |> round()
+    defp memory_unit(:TB), do: 1024 * 1024 * 1024 * 1024
+    defp memory_unit(:GB), do: 1024 * 1024 * 1024
+    defp memory_unit(:MB), do: 1024 * 1024
     defp memory_unit(:KB), do: 1024
   else
     defp format(:ascii, _info, _result) do
