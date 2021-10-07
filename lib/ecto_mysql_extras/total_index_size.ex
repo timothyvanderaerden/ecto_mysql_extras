@@ -1,6 +1,7 @@
 defmodule EctoMySQLExtras.TotalIndexSize do
   @moduledoc """
   Query the total size of all indexes in the Ecto Repo database.
+  Primary indexes are not included since InnoDB uses it as the clustered index.
 
   Data is retrieved from the `information_schema` database and the `tables` table.
   """
@@ -8,7 +9,7 @@ defmodule EctoMySQLExtras.TotalIndexSize do
 
   def info do
     %{
-      title: "Total size of all indexes in MB",
+      title: "Total size of all indexes (excluding PRIMARY indexes) in MB",
       columns: [
         %{name: :size, type: :bytes}
       ]
