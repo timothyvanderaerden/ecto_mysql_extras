@@ -104,7 +104,6 @@ defmodule EctoMySQLExtras do
       |> Enum.map(&format_value/1)
     end
 
-    defp format_value({%Decimal{} = value, _}), do: Decimal.to_string(value)
     defp format_value({string, :string}), do: String.replace(string, "\n", "")
   else
     defp format(:ascii, _info, _result) do

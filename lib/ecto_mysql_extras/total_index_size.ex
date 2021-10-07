@@ -19,7 +19,7 @@ defmodule EctoMySQLExtras.TotalIndexSize do
     """
     /* ECTO_MYSQL_EXTRAS: #{info().title} */
 
-    SELECT COALESCE(SUM(ROUND(INDEX_LENGTH / 1024 / 1024)),0) AS `size`
+    SELECT CAST(COALESCE(SUM(ROUND(INDEX_LENGTH / 1024 / 1024)),0) AS UNSIGNED) AS `size`
     FROM information_schema.tables
     WHERE TABLE_SCHEMA = DATABASE();
     """

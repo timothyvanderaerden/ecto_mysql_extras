@@ -17,7 +17,7 @@ defmodule EctoMySQLExtras.IndexSize do
         %{name: :name, type: :string},
         %{name: :index, type: :string},
         %{name: :pages, type: :integer},
-        %{name: :size, type: :integer}
+        %{name: :size, type: :bytes}
       ]
     }
   end
@@ -37,8 +37,8 @@ defmodule EctoMySQLExtras.IndexSize do
       database_name AS `schema`,
       table_name AS `name`,
       index_name AS `index`,
-      CAST(SUM(stat_value) as UNSIGNED) AS `pages`,
-      ROUND(SUM(stat_value)*@@innodb_page_size) AS `size`
+      CAST(SUM(stat_value) AS UNSIGNED) AS `pages`,
+      CAST(ROUND(SUM(stat_value)*@@innodb_page_size) AS UNSIGNED) AS `size`
     FROM mysql.innodb_index_stats
     WHERE database_name = DATABASE()
     AND stat_name = 'size'
