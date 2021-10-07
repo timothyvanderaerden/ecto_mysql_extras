@@ -47,7 +47,7 @@ defmodule EctoMySQLExtras.MixProject do
   defp package() do
     [
       maintainers: ["Timothy Vanderaerden"],
-      license: ["Apache-2.0"],
+      licenses: ["Apache-2.0"],
       links: %{"GitHub" => @source_url}
     ]
   end
