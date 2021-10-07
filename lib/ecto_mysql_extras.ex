@@ -12,8 +12,8 @@ defmodule EctoMySQLExtras do
 
   @type repo() :: module() | {module(), node()}
 
-  @spec queries :: map()
-  def queries do
+  @spec queries(repo()) :: map()
+  def queries(_repo \\ nil) do
     %{
       index_size: EctoMySQLExtras.IndexSize,
       plugins: EctoMySQLExtras.Plugins,
