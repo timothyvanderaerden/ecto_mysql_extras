@@ -92,22 +92,22 @@ defmodule EctoMySQLExtrasTest do
 
   describe "format_value" do
     test "bytes" do
-      assert EctoMySQLExtras.format_value({0, :bytes}) == "0 bytes"
-      assert EctoMySQLExtras.format_value({1000, :bytes}) == "1000 bytes"
-      assert EctoMySQLExtras.format_value({1024, :bytes}) == "1.0 KB"
-      assert EctoMySQLExtras.format_value({1200, :bytes}) == "1.2 KB"
-      assert EctoMySQLExtras.format_value({1024 * 1024, :bytes}) == "1.0 MB"
-      assert EctoMySQLExtras.format_value({1024 * 1200, :bytes}) == "1.2 MB"
-      assert EctoMySQLExtras.format_value({1024 * 1024 * 1024, :bytes}) == "1.0 GB"
-      assert EctoMySQLExtras.format_value({1024 * 1024 * 1200, :bytes}) == "1.2 GB"
-      assert EctoMySQLExtras.format_value({1024 * 1024 * 1024 * 1024, :bytes}) == "1.0 TB"
+      assert EctoMySQLExtras.Output.format_value({0, :bytes}) == "0 bytes"
+      assert EctoMySQLExtras.Output.format_value({1000, :bytes}) == "1000 bytes"
+      assert EctoMySQLExtras.Output.format_value({1024, :bytes}) == "1.0 KB"
+      assert EctoMySQLExtras.Output.format_value({1200, :bytes}) == "1.2 KB"
+      assert EctoMySQLExtras.Output.format_value({1024 * 1024, :bytes}) == "1.0 MB"
+      assert EctoMySQLExtras.Output.format_value({1024 * 1200, :bytes}) == "1.2 MB"
+      assert EctoMySQLExtras.Output.format_value({1024 * 1024 * 1024, :bytes}) == "1.0 GB"
+      assert EctoMySQLExtras.Output.format_value({1024 * 1024 * 1200, :bytes}) == "1.2 GB"
+      assert EctoMySQLExtras.Output.format_value({1024 * 1024 * 1024 * 1024, :bytes}) == "1.0 TB"
 
-      assert EctoMySQLExtras.format_value({1024 * 1024 * 1024 * 1024 * 1024, :bytes}) ==
+      assert EctoMySQLExtras.Output.format_value({1024 * 1024 * 1024 * 1024 * 1024, :bytes}) ==
                "1024.0 TB"
     end
 
     test "integer" do
-      assert EctoMySQLExtras.format_value({0, :integer}) == "0"
+      assert EctoMySQLExtras.Output.format_value({0, :integer}) == "0"
     end
   end
 
