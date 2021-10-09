@@ -37,7 +37,7 @@ defmodule EctoMySQLExtras.TableSize do
       TABLE_NAME AS `name`,
       TABLE_TYPE AS `type`,
       ENGINE AS `engine`,
-      DATA_LENGTH AS `size`
+      CAST(COALESCE(DATA_LENGTH, 0) AS UNSIGNED) AS `size`
     FROM information_schema.tables
     WHERE TABLE_SCHEMA = DATABASE()
     AND #{where_table}

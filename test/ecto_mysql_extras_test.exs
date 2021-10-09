@@ -109,6 +109,10 @@ defmodule EctoMySQLExtrasTest do
     test "integer" do
       assert EctoMySQLExtras.Output.format_value({0, :integer}) == "0"
     end
+
+    test "string" do
+      assert EctoMySQLExtras.Output.format_value({nil, :string}) == ""
+    end
   end
 
   describe "remote query" do

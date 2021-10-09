@@ -33,6 +33,7 @@ defmodule EctoMySQLExtras.Output do
     end
 
     def format_value({integer, :bytes}) when is_integer(integer), do: format_bytes(integer)
+    def format_value({nil, :string}), do: ""
     def format_value({string, :string}), do: String.replace(string, "\n", "")
     def format_value({other, _}), do: inspect(other)
 
