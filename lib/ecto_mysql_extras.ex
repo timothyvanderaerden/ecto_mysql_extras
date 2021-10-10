@@ -13,6 +13,8 @@ defmodule EctoMySQLExtras do
 
   @type repo() :: module() | {module(), node()}
 
+  @check_database [:db_settings]
+
   @spec queries(repo()) :: map()
   def queries(_repo \\ nil) do
     %{
@@ -29,7 +31,7 @@ defmodule EctoMySQLExtras do
   @spec query(atom(), repo(), keyword()) :: :ok | MyXQL.Result.t()
   def query(query_name, repo, opts \\ []) do
     query_module = Map.fetch!(queries(), query_name)
-    opts = default_opts(opts)
+    opts = default_opts(opts) |> database_opts(repo, query_name)
 
     result = query!(repo, query_module.query(opts))
 
@@ -55,6 +57,21 @@ defmodule EctoMySQLExtras do
 
   defp query!(repo, query) do
     repo.query!(query)
+  end
+
+  # Not sure if this is the best way to retreive the database
+  defp which_database(repo) do
+    version =
+      query!(repo, "SHOW VARIABLES LIKE 'version'")
+      |> (&Enum.at(&1.rows, 0)).()
+      |> (&Enum.at(&1, 1)).()
+      |> String.downcase()
+
+    if String.contains?(version, "mariadb") do
+      :mariadb
+    else
+      :mysql
+    end
   end
 
   @spec db_settings(repo(), keyword()) :: :ok | MyXQL.Result.t()
@@ -83,4 +100,11 @@ defmodule EctoMySQLExtras do
 
     Keyword.merge(default, opts)
   end
+
+  defp database_opts(opts, repo, query) when query in @check_database do
+    database = [db: which_database(repo)]
+    Keyword.merge(database, opts)
+  end
+
+  defp database_opts(opts, _repo, _query), do: opts
 end

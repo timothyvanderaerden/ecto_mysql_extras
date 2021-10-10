@@ -2,7 +2,7 @@ defmodule EctoMySQLExtras.DbSettings do
   @moduledoc """
   Query global variables.
 
-  Data is retrieved from the `information_schema` database and the `global_variables` table.
+  Data is retrieved from the `performance_schema` or `information_schema` database and the `global_variables` table.
   It also provides `InnoDB` specific variables.
   """
   @behaviour EctoMySQLExtras
@@ -17,12 +17,19 @@ defmodule EctoMySQLExtras.DbSettings do
     }
   end
 
-  def query(_args \\ []) do
+  def query(args \\ [db: :mysql]) do
+    schema =
+      if args[:db] == :mysql do
+        "performance_schema"
+      else
+        "information_schema"
+      end
+
     """
     /* ECTO_MYSQL_EXTRAS: #{info().title} */
 
     SELECT VARIABLE_NAME AS `name`, VARIABLE_VALUE AS `value`
-    FROM information_schema.global_variables
+    FROM #{schema}.global_variables
     WHERE VARIABLE_NAME IN (
       'INNODB_BUFFER_POOL_INSTANCES',
       'INNODB_BUFFER_POOL_SIZE',

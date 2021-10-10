@@ -31,10 +31,15 @@ The configured user should have read (SELECT) access on the `mysql` database. Fo
 
 * `innodb_index_stats`
 
-The configured user should also have read access on the `information_schema` database, but in most cases this the default
-behavior on both MySQL and MariaDB.
+The configured user should also have read access on the `information_schema` and `performance_schema` database, in most cases this the default behavior on MariaDB, for MySQL you need to grant access.
 
 An example on how to achieve this can be found in `docker/init/init.sql`.
+
+### Performance schema
+
+The performance schema is enabled by default for MySQL databases but not for MariaDB. To enable this add `performance_schema=ON` to `my.cnf`.
+
+More information: https://mariadb.com/kb/en/performance-schema-overview/
 
 ## Usage
 
