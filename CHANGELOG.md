@@ -4,6 +4,9 @@
 ### Changed
 * Delete views from query results
 
+### Fixed
+* Don't convert total index size inside SQL query
+
 ## [0.1.0]
 ### Added
 * Initial commit
