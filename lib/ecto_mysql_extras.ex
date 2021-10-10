@@ -16,6 +16,7 @@ defmodule EctoMySQLExtras do
   @spec queries(repo()) :: map()
   def queries(_repo \\ nil) do
     %{
+      db_settings: EctoMySQLExtras.DbSettings,
       index_size: EctoMySQLExtras.IndexSize,
       plugins: EctoMySQLExtras.Plugins,
       table_indexes_size: EctoMySQLExtras.TableIndexesSize,
@@ -56,7 +57,10 @@ defmodule EctoMySQLExtras do
     repo.query!(query)
   end
 
-  @spec index_size(atom(), keyword()) :: :ok | MyXQL.Result.t()
+  @spec db_settings(repo(), keyword()) :: :ok | MyXQL.Result.t()
+  def db_settings(repo, opts \\ []), do: query(:db_settings, repo, opts)
+
+  @spec index_size(repo(), keyword()) :: :ok | MyXQL.Result.t()
   def index_size(repo, opts \\ []), do: query(:index_size, repo, opts)
 
   @spec plugins(repo(), keyword()) :: :ok | MyXQL.Result.t()
