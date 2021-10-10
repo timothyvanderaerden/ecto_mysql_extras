@@ -17,7 +17,6 @@ defmodule EctoMySQLExtras.TableIndexesSize do
       columns: [
         %{name: :schema, type: :string},
         %{name: :name, type: :string},
-        %{name: :type, type: :string},
         %{name: :engine, type: :string},
         %{name: :index_size, type: :bytes}
       ]
@@ -38,11 +37,11 @@ defmodule EctoMySQLExtras.TableIndexesSize do
     SELECT
       TABLE_SCHEMA AS `schema`,
       TABLE_NAME AS `name`,
-      TABLE_TYPE AS `type`,
       ENGINE AS `engine`,
       INDEX_LENGTH AS `index_size`
     FROM information_schema.tables
     WHERE TABLE_SCHEMA = DATABASE()
+    AND TABLE_TYPE != 'VIEW'
     AND #{where_table}
     ORDER BY `index_size` DESC;
     """

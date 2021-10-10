@@ -14,7 +14,6 @@ defmodule EctoMySQLExtras.TotalTableSize do
       columns: [
         %{name: :schema, type: :string},
         %{name: :name, type: :string},
-        %{name: :type, type: :string},
         %{name: :engine, type: :string},
         %{name: :size, type: :bytes}
       ]
@@ -35,11 +34,11 @@ defmodule EctoMySQLExtras.TotalTableSize do
     SELECT
       TABLE_SCHEMA AS `schema`,
       TABLE_NAME AS `name`,
-      TABLE_TYPE AS `type`,
       ENGINE AS `engine`,
       ROUND(DATA_LENGTH + INDEX_LENGTH) AS `size`
     FROM information_schema.tables
     WHERE TABLE_SCHEMA = DATABASE()
+    AND TABLE_TYPE != 'VIEW'
     AND #{where_table}
     ORDER BY `size` DESC;
     """
