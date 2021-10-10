@@ -1,6 +1,9 @@
 # Changelog
 
 ## [0.2.0]
+### Added
+* Test MySQL 5.7 in CI
+
 ### Changed
 * Delete views from query results
 

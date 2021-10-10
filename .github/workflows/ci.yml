@@ -157,7 +157,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        db: ["mysql:8.0", "mariadb:10.5"]
+        db: ["mysql:5.7", "mysql:8.0", "mariadb:10.5"]
         otp: ["24"]
         elixir: ["1.12"]
     env:
