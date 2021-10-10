@@ -59,19 +59,19 @@ defmodule EctoMySQLExtras do
   @spec index_size(atom(), keyword()) :: :ok | MyXQL.Result.t()
   def index_size(repo, opts \\ []), do: query(:index_size, repo, opts)
 
-  @spec plugins(atom(), keyword()) :: :ok | MyXQL.Result.t()
+  @spec plugins(repo(), keyword()) :: :ok | MyXQL.Result.t()
   def plugins(repo, opts \\ []), do: query(:plugins, repo, opts)
 
-  @spec table_indexes_size(atom(), keyword()) :: :ok | MyXQL.Result.t()
+  @spec table_indexes_size(repo(), keyword()) :: :ok | MyXQL.Result.t()
   def table_indexes_size(repo, opts \\ []), do: query(:table_indexes_size, repo, opts)
 
-  @spec table_size(atom(), keyword()) :: :ok | MyXQL.Result.t()
+  @spec table_size(repo(), keyword()) :: :ok | MyXQL.Result.t()
   def table_size(repo, opts \\ []), do: query(:table_size, repo, opts)
 
-  @spec total_index_size(atom(), keyword()) :: :ok | MyXQL.Result.t()
+  @spec total_index_size(repo(), keyword()) :: :ok | MyXQL.Result.t()
   def total_index_size(repo, opts \\ []), do: query(:total_index_size, repo, opts)
 
-  @spec total_table_size(atom(), keyword()) :: :ok | MyXQL.Result.t()
+  @spec total_table_size(repo(), keyword()) :: :ok | MyXQL.Result.t()
   def total_table_size(repo, opts \\ []), do: query(:total_table_size, repo, opts)
 
   defp default_opts(opts) do
