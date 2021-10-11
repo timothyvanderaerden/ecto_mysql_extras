@@ -25,20 +25,21 @@ defmodule EctoMySQLExtras do
       table_indexes_size: EctoMySQLExtras.TableIndexesSize,
       table_size: EctoMySQLExtras.TableSize,
       total_index_size: EctoMySQLExtras.TotalIndexSize,
-      total_table_size: EctoMySQLExtras.TotalTableSize
+      total_table_size: EctoMySQLExtras.TotalTableSize,
+      unused_indexes: EctoMySQLExtras.UnusedIndexes
     }
   end
 
   @spec query(atom(), repo(), keyword()) :: :ok | MyXQL.Result.t()
   def query(query_name, repo, opts \\ []) do
     query_module = Map.fetch!(queries(), query_name)
-    opts = default_opts(opts) |> database_opts(repo, query_name)
+    opts = default_opts(opts, query_module.info[:default_args]) |> database_opts(repo, query_name)
 
     result = query!(repo, query_module.query(opts))
 
     format(
       Keyword.fetch!(opts, :format),
-      query_module.info(),
+      query_module.info,
       result
     )
   end
@@ -99,9 +100,13 @@ defmodule EctoMySQLExtras do
   @spec total_table_size(repo(), keyword()) :: :ok | MyXQL.Result.t()
   def total_table_size(repo, opts \\ []), do: query(:total_table_size, repo, opts)
 
-  defp default_opts(opts) do
-    default = [format: :raw]
+  @spec unused_indexes(repo(), keyword()) :: :ok | MyXQL.Result.t()
+  def unused_indexes(repo, opts \\ []), do: query(:unused_indexes, repo, opts)
 
+  defp default_opts(opts, nil), do: default_opts(opts, [])
+
+  defp default_opts(opts, default_args) do
+    default = [format: :raw] ++ default_args
     Keyword.merge(default, opts)
   end
 

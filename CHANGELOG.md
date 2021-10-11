@@ -5,6 +5,7 @@
 * Test MySQL 5.7 in CI
 * Query: DB settings
 * Query: DB status
+* Query: Unused indexes
 
 ### Changed
 * Delete views from query results
