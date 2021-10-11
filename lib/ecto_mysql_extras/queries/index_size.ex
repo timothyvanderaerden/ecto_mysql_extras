@@ -4,6 +4,7 @@ defmodule EctoMySQLExtras.IndexSize do
 
   Data is retrieved from the `mysql` database and the `innodb_index_stats` table.
   This query will only work for databases that use `InnoDB` engine.
+  Primary keys are excluded from the query.
   """
   @behaviour EctoMySQLExtras
 
@@ -42,6 +43,7 @@ defmodule EctoMySQLExtras.IndexSize do
     FROM mysql.innodb_index_stats
     WHERE database_name = DATABASE()
     AND stat_name = 'size'
+    AND index_name != 'PRIMARY'
     AND #{where_table}
     GROUP BY table_name, index_name
     ORDER BY `size` DESC;

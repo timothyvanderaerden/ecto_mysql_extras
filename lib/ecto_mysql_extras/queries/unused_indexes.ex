@@ -6,6 +6,7 @@ defmodule EctoMySQLExtras.UnusedIndexes do
   The database should be running for a while since unused indexes are tracked based on IO activity.
   An index is considered unused when it has 0 hits and almost unused when it has 50 hits or less. The latter can however
   be configured by passing: `min_hits` as an argument. Also indexes of small tables (less than 5 pages) are excluded.
+  Primary keys are excluded from the query.
   """
   @behaviour EctoMySQLExtras
 
@@ -52,6 +53,7 @@ defmodule EctoMySQLExtras.UnusedIndexes do
     WHERE u.OBJECT_SCHEMA = DATABASE()
     AND u.COUNT_STAR < #{args[:min_hits]}
     AND s.`pages` > 5
+    AND s.index_name != 'PRIMARY'
     ORDER BY `index_hits` DESC;
     """
   end
