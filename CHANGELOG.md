@@ -6,6 +6,7 @@
 * Query: DB settings
 * Query: DB status
 * Query: Unused indexes
+* Query: Records rank
 
 ### Changed
 * Delete views from query results

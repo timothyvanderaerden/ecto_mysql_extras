@@ -47,6 +47,13 @@ defmodule EctoMySQLExtrasTest do
       assert result.columns == column_name_list(EctoMySQLExtras.IndexSize.info())
     end
 
+    test "run records_rank query with args" do
+      result = EctoMySQLExtras.records_rank(EctoMySQLExtras.TestRepo, table: "test")
+
+      assert length(result.columns) > 0
+      assert result.columns == column_name_list(EctoMySQLExtras.RecordsRank.info())
+    end
+
     test "run table_indexes_size query with args" do
       result = EctoMySQLExtras.table_indexes_size(EctoMySQLExtras.TestRepo, table: "test")
 

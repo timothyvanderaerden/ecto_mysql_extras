@@ -23,6 +23,7 @@ defmodule EctoMySQLExtras do
       db_status: EctoMySQLExtras.DBStatus,
       index_size: EctoMySQLExtras.IndexSize,
       plugins: EctoMySQLExtras.Plugins,
+      records_rank: EctoMySQLExtras.RecordsRank,
       table_indexes_size: EctoMySQLExtras.TableIndexesSize,
       table_size: EctoMySQLExtras.TableSize,
       total_index_size: EctoMySQLExtras.TotalIndexSize,
@@ -85,6 +86,9 @@ defmodule EctoMySQLExtras do
 
   @spec index_size(repo(), keyword()) :: :ok | MyXQL.Result.t()
   def index_size(repo, opts \\ []), do: query(:index_size, repo, opts)
+
+  @spec records_rank(repo(), keyword()) :: :ok | MyXQL.Result.t()
+  def records_rank(repo, opts \\ []), do: query(:records_rank, repo, opts)
 
   @spec plugins(repo(), keyword()) :: :ok | MyXQL.Result.t()
   def plugins(repo, opts \\ []), do: query(:plugins, repo, opts)
