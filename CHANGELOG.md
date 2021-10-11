@@ -4,6 +4,7 @@
 ### Added
 * Test MySQL 5.7 in CI
 * Query: DB settings
+* Query: DB status
 
 ### Changed
 * Delete views from query results
