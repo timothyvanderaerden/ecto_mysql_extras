@@ -44,6 +44,7 @@ defmodule EctoMySQLExtras.DbSettings do
       'MAX_CONNECTIONS',
       'MAX_HEAP_TABLE_SIZE',
       'OPEN_FILES_LIMIT',
+      'PERFORMANCE_SCHEMA',
       'QUERY_CACHE_SIZE',
       'SYNC_BINLOG',
       'TABLE_OPEN_CACHE',
