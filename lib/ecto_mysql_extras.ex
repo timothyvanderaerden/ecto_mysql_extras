@@ -8,7 +8,8 @@ defmodule EctoMySQLExtras do
               required(:title) => String.t(),
               required(:columns) => [%{name: atom(), type: atom()}],
               optional(:order_by) => [{atom(), :ASC | :DESC}],
-              optional(:args) => [atom()]
+              optional(:args) => [atom()],
+              optional(:default_args) => list()
             }
 
   @type repo() :: module() | {module(), node()}
