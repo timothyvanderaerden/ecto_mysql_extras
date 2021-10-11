@@ -38,6 +38,7 @@ defmodule EctoMySQLExtras.DbSettings do
       'INNODB_IO_CAPACITY_MAX',
       'INNODB_IO_CAPACITY',
       'INNODB_LOG_FILE_SIZE',
+      'INNODB_STRICT_MODE',
       'INNODB_THREAD_CONCURRENCY',
       'KEY_BUFFER_SIZE',
       'MAX_CONNECTIONS',
