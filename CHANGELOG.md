@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.2.0]
+## v0.2.0 (2021-10-11)
 ### Added
 * Test MySQL 5.7 in CI
 * Query: DB settings
@@ -10,11 +10,12 @@
 
 ### Changed
 * Delete views from query results
+* Exclude Primary key from Index size query
 
 ### Fixed
 * Don't convert total index size inside SQL query
 
-## [0.1.0]
+## v0.1.0 (2021-10-07)
 ### Added
 * Initial commit
 * Query: Index Size
