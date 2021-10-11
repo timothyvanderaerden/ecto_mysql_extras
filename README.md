@@ -20,7 +20,7 @@ The package can be installed by adding `ecto_mysql_extras` to your list of depen
 ```elixir
 def deps do
   [
-    {:ecto_mysql_extras, "~> 0.1.0"}
+    {:ecto_mysql_extras, "~> 0.2.0"}
   ]
 end
 ```
