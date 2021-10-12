@@ -35,7 +35,7 @@ defmodule EctoMySQLExtras.TotalTableSize do
       TABLE_SCHEMA AS `schema`,
       TABLE_NAME AS `name`,
       ENGINE AS `engine`,
-      ROUND(DATA_LENGTH + INDEX_LENGTH) AS `size`
+      CAST(ROUND(DATA_LENGTH + INDEX_LENGTH) AS UNSIGNED) AS `size`
     FROM information_schema.tables
     WHERE TABLE_SCHEMA = DATABASE()
     AND TABLE_TYPE != 'VIEW'
