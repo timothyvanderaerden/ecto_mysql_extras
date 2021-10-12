@@ -41,7 +41,7 @@ defmodule EctoMySQLExtras.TableIndexesSize do
       INDEX_LENGTH AS `index_size`
     FROM information_schema.tables
     WHERE TABLE_SCHEMA = DATABASE()
-    AND TABLE_TYPE != 'VIEW'
+    AND TABLE_TYPE <> 'VIEW'
     AND #{where_table}
     ORDER BY `index_size` DESC;
     """

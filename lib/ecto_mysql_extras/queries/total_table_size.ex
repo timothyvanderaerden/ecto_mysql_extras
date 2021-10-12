@@ -38,7 +38,7 @@ defmodule EctoMySQLExtras.TotalTableSize do
       CAST(ROUND(DATA_LENGTH + INDEX_LENGTH) AS UNSIGNED) AS `size`
     FROM information_schema.tables
     WHERE TABLE_SCHEMA = DATABASE()
-    AND TABLE_TYPE != 'VIEW'
+    AND TABLE_TYPE <> 'VIEW'
     AND #{where_table}
     ORDER BY `size` DESC;
     """

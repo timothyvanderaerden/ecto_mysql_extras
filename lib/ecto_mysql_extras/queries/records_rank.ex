@@ -39,7 +39,7 @@ defmodule EctoMySQLExtras.RecordsRank do
       TABLE_ROWS AS `estimated_count`
     FROM information_schema.tables
     WHERE TABLE_SCHEMA = DATABASE()
-    AND TABLE_TYPE != 'VIEW'
+    AND TABLE_TYPE <> 'VIEW'
     AND #{where_table}
     ORDER BY `estimated_count` DESC;
     """

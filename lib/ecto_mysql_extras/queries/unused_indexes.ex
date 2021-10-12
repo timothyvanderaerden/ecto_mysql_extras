@@ -53,7 +53,7 @@ defmodule EctoMySQLExtras.UnusedIndexes do
     WHERE u.OBJECT_SCHEMA = DATABASE()
     AND u.COUNT_STAR < #{args[:min_hits]}
     AND s.`pages` > 5
-    AND s.index_name != 'PRIMARY'
+    AND s.index_name <> 'PRIMARY'
     ORDER BY `index_hits` DESC;
     """
   end

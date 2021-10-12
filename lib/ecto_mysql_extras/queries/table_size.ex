@@ -38,7 +38,7 @@ defmodule EctoMySQLExtras.TableSize do
       DATA_LENGTH AS `size`
     FROM information_schema.tables
     WHERE TABLE_SCHEMA = DATABASE()
-    AND TABLE_TYPE != 'VIEW'
+    AND TABLE_TYPE <> 'VIEW'
     AND #{where_table}
     ORDER BY `size` DESC;
     """
