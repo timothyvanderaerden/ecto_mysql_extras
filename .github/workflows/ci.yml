@@ -219,7 +219,7 @@ jobs:
       MIX_ENV: test
     services:
       mysql:
-        image: mariadb:10
+        image: mysql:8.0
         env:
           MYSQL_USER: ${{ env.MYSQL_USER }}
           MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
