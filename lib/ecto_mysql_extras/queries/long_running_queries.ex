@@ -29,7 +29,7 @@ defmodule EctoMySQLExtras.LongRunningQueries do
     }
   end
 
-  def query(args \\ [db: :mysql]) do
+  def query(args \\ [db: :mysql, version: "8.0.0"]) do
     query = """
     /* ECTO_MYSQL_EXTRAS: #{info().title} */
 
@@ -37,6 +37,13 @@ defmodule EctoMySQLExtras.LongRunningQueries do
 
     query_db_specific =
       if args[:db] == :mysql do
+        table =
+          if String.starts_with?(args[:version], "5.7.") do
+            "information_schema.PROCESSLIST"
+          else
+            "performance_schema.processlist"
+          end
+
         """
         SELECT
           ID AS `id`,
@@ -47,7 +54,7 @@ defmodule EctoMySQLExtras.LongRunningQueries do
           INFO AS `query`,
           NULL AS `memory_used`,
           NULL AS `max_memory_used`
-        FROM performance_schema.processlist
+        FROM #{table}
         WHERE DB = DATABASE()
         AND COMMAND <> 'Sleep'
         AND TIME > #{args[:threshold] / 1000}

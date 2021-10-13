@@ -73,9 +73,9 @@ defmodule EctoMySQLExtras do
       |> String.downcase()
 
     if String.contains?(version, "mariadb") do
-      :mariadb
+      [db: :mariadb, version: version]
     else
-      :mysql
+      [db: :mysql, version: version]
     end
   end
 
@@ -120,7 +120,7 @@ defmodule EctoMySQLExtras do
   end
 
   defp database_opts(opts, repo, query) when query in @check_database do
-    database = [db: which_database(repo)]
+    database = which_database(repo)
     Keyword.merge(database, opts)
   end
 

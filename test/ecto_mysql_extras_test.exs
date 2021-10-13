@@ -129,10 +129,25 @@ defmodule EctoMySQLExtrasTest do
     test "mysql" do
       assert EctoMySQLExtras.DbSettings.query(db: :mysql) =~ "performance_schema"
 
-      assert EctoMySQLExtras.LongRunningQueries.query(db: :mysql, threshold: 500) =~
+      assert EctoMySQLExtras.LongRunningQueries.query(
+               db: :mysql,
+               version: "8.0.0",
+               threshold: 500
+             ) =~
                "performance_schema"
 
-      assert EctoMySQLExtras.LongRunningQueries.query(db: :mysql, threshold: 500) =~ "TIME > 0.5"
+      assert EctoMySQLExtras.LongRunningQueries.query(
+               db: :mysql,
+               version: "5.7.0",
+               threshold: 500
+             ) =~
+               "information_schema"
+
+      assert EctoMySQLExtras.LongRunningQueries.query(
+               db: :mysql,
+               version: "8.0.0",
+               threshold: 500
+             ) =~ "TIME > 0.5"
     end
 
     test "mariadb" do

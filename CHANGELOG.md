@@ -2,7 +2,7 @@
 
 ## v0.3.0
 ### Added
-* Query: Long running queries
+* Query: Long running queries (#1)
 
 ### Changed
 * Renamed `DBStatus` to `DbStatus`
