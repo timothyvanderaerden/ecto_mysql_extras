@@ -1,6 +1,9 @@
 # Changelog
 
 ## v0.3.0
+### Added
+* Query: Long running queries
+
 ### Fixed
 * Convert Total table size to unsigned integer inside SQL query
 

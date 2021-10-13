@@ -47,6 +47,13 @@ defmodule EctoMySQLExtrasTest do
       assert result.columns == column_name_list(EctoMySQLExtras.IndexSize.info())
     end
 
+    test "run long_running_queries query with args" do
+      result = EctoMySQLExtras.long_running_queries(EctoMySQLExtras.TestRepo, threshold: 1000)
+
+      assert length(result.columns) > 0
+      assert result.columns == column_name_list(EctoMySQLExtras.LongRunningQueries.info())
+    end
+
     test "run records_rank query with args" do
       result = EctoMySQLExtras.records_rank(EctoMySQLExtras.TestRepo, table: "test")
 
