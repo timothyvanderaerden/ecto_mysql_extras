@@ -20,7 +20,7 @@ defmodule EctoMySQLExtras do
   def queries(_repo \\ nil) do
     %{
       db_settings: EctoMySQLExtras.DbSettings,
-      db_status: EctoMySQLExtras.DBStatus,
+      db_status: EctoMySQLExtras.DbStatus,
       index_size: EctoMySQLExtras.IndexSize,
       long_running_queries: EctoMySQLExtras.LongRunningQueries,
       plugins: EctoMySQLExtras.Plugins,

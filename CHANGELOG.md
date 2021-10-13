@@ -4,6 +4,9 @@
 ### Added
 * Query: Long running queries
 
+### Changed
+* Renamed `DBStatus` to `DbStatus`
+
 ### Fixed
 * Convert Total table size to unsigned integer inside SQL query
 

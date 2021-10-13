@@ -1,4 +1,4 @@
-defmodule EctoMySQLExtras.DBStatus do
+defmodule EctoMySQLExtras.DbStatus do
   @moduledoc """
   Query global status.
 
