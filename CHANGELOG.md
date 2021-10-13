@@ -2,6 +2,7 @@
 
 ## v0.3.0
 ### Added
+* Test MariaDB 10.6 in CI
 * Query: Long running queries (#1)
 
 ### Changed
