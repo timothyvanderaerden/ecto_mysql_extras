@@ -3,8 +3,9 @@ defmodule EctoMySQLExtras.LongRunningQueries do
   Query all long running queries.
 
   Data is retrieved from the `information_schema` database and the `plugins` table.
-  The `:threshold` argument is in milliseconds. This means that the duration is also
-  displayed in milliseconds. At this moment it isn't converted to a more human readable
+  The `:threshold` argument is in milliseconds. The duration for MySQL is displayed
+  in seconds, for MariaDB this is in millieseconds.
+  At this moment it isn't converted to a more human readable
   format.
   """
   @behaviour EctoMySQLExtras
@@ -17,37 +18,60 @@ defmodule EctoMySQLExtras.LongRunningQueries do
       default_args: [threshold: 500],
       columns: [
         %{name: :id, type: :integer},
-        %{name: :tid, type: :integer},
+        %{name: :thread, type: :integer},
         %{name: :user, type: :string},
         %{name: :host, type: :string},
         %{name: :duration, type: :integer},
         %{name: :query, type: :string},
-        %{name: :qid, type: :integer},
         %{name: :memory_used, type: :bytes},
         %{name: :max_memory_used, type: :bytes}
       ]
     }
   end
 
-  def query(args \\ []) do
-    """
+  def query(args \\ [db: :mysql]) do
+    query = """
     /* ECTO_MYSQL_EXTRAS: #{info().title} */
 
-    SELECT
-      ID AS `id`,
-      TID AS `tid`,
-      USER AS `user`,
-      HOST AS `host`,
-      TIME_MS AS `duration`,
-      INFO AS `query`,
-      QUERY_ID AS `qid`,
-      MEMORY_USED AS `memory_used`,
-      MAX_MEMORY_USED AS `max_memory_used`
-    FROM information_schema.PROCESSLIST
-    WHERE DB = DATABASE()
-    AND STATE <> ''
-    AND TIME_MS > #{args[:threshold]}
-    ORDER BY `duration` DESC;
     """
+
+    query_db_specific =
+      if args[:db] == :mysql do
+        """
+        SELECT
+          ID AS `id`,
+          NULL AS `thread`,
+          USER AS `user`,
+          HOST AS `host`,
+          TIME AS `duration`,
+          INFO AS `query`,
+          NULL AS `memory_used`,
+          NULL AS `max_memory_used`
+        FROM performance_schema.processlist
+        WHERE DB = DATABASE()
+        AND COMMAND <> 'Sleep'
+        AND TIME > #{args[:threshold] / 1000}
+        ORDER BY `duration` DESC;
+        """
+      else
+        """
+        SELECT
+          ID AS `id`,
+          TID AS `thread`,
+          USER AS `user`,
+          HOST AS `host`,
+          TIME_MS AS `duration`,
+          INFO AS `query`,
+          MEMORY_USED AS `memory_used`,
+          MAX_MEMORY_USED AS `max_memory_used`
+        FROM information_schema.PROCESSLIST
+        WHERE DB = DATABASE()
+        AND COMMAND <> 'Sleep'
+        AND TIME_MS > #{args[:threshold]}
+        ORDER BY `duration` DESC;
+        """
+      end
+
+    query <> query_db_specific
   end
 end

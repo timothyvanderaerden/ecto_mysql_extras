@@ -125,6 +125,27 @@ defmodule EctoMySQLExtrasTest do
     end
   end
 
+  describe "database specific" do
+    test "mysql" do
+      assert EctoMySQLExtras.DbSettings.query(db: :mysql) =~ "performance_schema"
+
+      assert EctoMySQLExtras.LongRunningQueries.query(db: :mysql, threshold: 500) =~
+               "performance_schema"
+
+      assert EctoMySQLExtras.LongRunningQueries.query(db: :mysql, threshold: 500) =~ "TIME > 0.5"
+    end
+
+    test "mariadb" do
+      assert EctoMySQLExtras.DbSettings.query(db: :mariadb) =~ "information_schema"
+
+      assert EctoMySQLExtras.LongRunningQueries.query(db: :mariadb, threshold: 500) =~
+               "information_schema"
+
+      assert EctoMySQLExtras.LongRunningQueries.query(db: :mariadb, threshold: 500) =~
+               "TIME_MS > 500"
+    end
+  end
+
   describe "remote query" do
     setup context do
       if context[:distribution] do
