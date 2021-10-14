@@ -58,7 +58,7 @@ defmodule EctoMySQLExtras.Output do
     defp memory_unit(:MB), do: 1024 * 1024
     defp memory_unit(:KB), do: 1024
   else
-    defp format(:ascii, _info, _result) do
+    def format(:ascii, _info, _result) do
       IO.warn("""
       If you want to display query results in ASCII format you should add `table_rex` as a dependency.
       """)
