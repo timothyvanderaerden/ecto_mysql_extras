@@ -7,6 +7,7 @@
 
 ### Changed
 * Renamed `DBStatus` to `DbStatus`
+* Pass query arguments inside `args` keyword list
 
 ### Fixed
 * Convert Total table size to unsigned integer inside SQL query

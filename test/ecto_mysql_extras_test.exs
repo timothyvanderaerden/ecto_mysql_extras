@@ -125,6 +125,8 @@ defmodule EctoMySQLExtrasTest do
     end
   end
 
+  # Access queries directly since we don't care about the actual DB output
+  # but we care about the query input itself.
   describe "database specific" do
     test "mysql" do
       assert EctoMySQLExtras.DbSettings.query(db: :mysql) =~ "performance_schema"
@@ -146,8 +148,8 @@ defmodule EctoMySQLExtrasTest do
       assert EctoMySQLExtras.LongRunningQueries.query(
                db: :mysql,
                version: "8.0.0",
-               threshold: 500
-             ) =~ "TIME > 0.5"
+               threshold: 1000
+             ) =~ "TIME > 1"
     end
 
     test "mariadb" do

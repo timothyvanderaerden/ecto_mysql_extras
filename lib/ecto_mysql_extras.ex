@@ -33,12 +33,24 @@ defmodule EctoMySQLExtras do
     }
   end
 
+  @doc """
+  Run a query with `name`, on `repo`, in the given `format`.
+  The `repo` can be a module name or a tuple like `{module, node}`.
+
+  ## Options
+    * `:format` - The format that results will return. Accepts `:ascii` or `:raw`.
+      If `:ascii` a nice table printed in ASCII - a string will be returned.
+      Otherwise a result struct will be returned. This option is required.
+
+    * `:args` - Overwrites the default arguments for the given query. You can
+      check the defaults of each query in its modules defined in this project.
+  """
   @spec query(atom(), repo(), keyword()) :: :ok | MyXQL.Result.t()
   def query(query_name, repo, opts \\ []) do
     query_module = Map.fetch!(queries(), query_name)
     opts = default_opts(opts, query_module.info[:default_args]) |> database_opts(repo, query_name)
 
-    result = query!(repo, query_module.query(opts))
+    result = query!(repo, query_module.query(Keyword.fetch!(opts, :args)))
 
     format(
       Keyword.fetch!(opts, :format),
@@ -115,8 +127,18 @@ defmodule EctoMySQLExtras do
   defp default_opts(opts, nil), do: default_opts(opts, [])
 
   defp default_opts(opts, default_args) do
-    default = [format: :raw] ++ default_args
-    Keyword.merge(default, opts)
+    format = Keyword.get(opts, :format, :raw)
+
+    args =
+      Keyword.merge(
+        default_args || [],
+        opts[:args] || []
+      )
+
+    [
+      format: format,
+      args: args
+    ]
   end
 
   defp database_opts(opts, repo, query) when query in @check_database do
