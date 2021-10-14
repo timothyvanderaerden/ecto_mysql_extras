@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.1 (2021-10-14)
+### Fixed
+* Compile error when TableRex isn't available
+
 ## v0.2.0 (2021-10-11)
 ### Added
 * Test MySQL 5.7 in CI
