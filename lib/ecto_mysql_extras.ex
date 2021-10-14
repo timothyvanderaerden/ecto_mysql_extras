@@ -48,9 +48,13 @@ defmodule EctoMySQLExtras do
   @spec query(atom(), repo(), keyword()) :: :ok | MyXQL.Result.t()
   def query(query_name, repo, opts \\ []) do
     query_module = Map.fetch!(queries(), query_name)
-    opts = default_opts(opts, query_module.info[:default_args]) |> database_opts(repo, query_name)
+    opts = default_opts(opts, query_module.info[:default_args])
 
-    result = query!(repo, query_module.query(Keyword.fetch!(opts, :args)))
+    result =
+      query!(
+        repo,
+        query_module.query(Keyword.fetch!(opts, :args) |> database_opts(repo, query_name))
+      )
 
     format(
       Keyword.fetch!(opts, :format),
