@@ -21,18 +21,17 @@ The package can be installed by adding `ecto_mysql_extras` to your list of depen
 ```elixir
 def deps do
   [
-    {:ecto_mysql_extras, "~> 0.2.0"}
+    {:ecto_mysql_extras, "~> 0.3.0"}
   ]
 end
 ```
 
 ### MySQL/MariaDB configuration
 
-The configured user should have read (SELECT) access on the `mysql` database. Following schemas are being used:
+The configured user should have read (SELECT) access on the `mysql`, `information_schema` and `performance_schema` database. Specifaccly for the following schemas:
 
-* `innodb_index_stats`
-
-The configured user should also have read access on the `information_schema` and `performance_schema` database, in most cases this the default behavior on MariaDB, for MySQL you need to grant access.
+* `mysql.innodb_index_stats`
+* `performance_schema.table_io_waits_summary_by_index_usage`
 
 An example on how to achieve this can be found in `docker/init/init.sql`.
 
