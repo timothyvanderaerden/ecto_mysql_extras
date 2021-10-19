@@ -260,6 +260,6 @@ jobs:
       - name: Run coverage
         run: mix coveralls.json
 
-      - name: Upload test coverage
-        id: codecov
-        run: bash <(curl -s https://codecov.io/bash)
+      - uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
