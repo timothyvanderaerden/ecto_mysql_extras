@@ -139,7 +139,7 @@ EctoMySQLExtras.long_running_queries(MyApp.Repo, format: :ascii, args: [threshol
 ### `plugins`
 
 ```
-EctoMySQLExtras.plugins(EctoExtrasLiveDashboard.MySQLRepo, format: :ascii)
+EctoMySQLExtras.plugins(MyApp.Repo, format: :ascii)
 
 +--------------------------------------------------------------------------------------------------------------------------------------+
 |                                                     Available and installed plugins                                                  |
@@ -157,7 +157,7 @@ Shows all installed plugins, their version and status.
 
 
 ```
-EctoMySQLExtras.records_rank(EctoExtrasLiveDashboard.MySQLRepo, format: :ascii)
+EctoMySQLExtras.records_rank(MyApp.Repo, format: :ascii)
 
 +-----------------------------------------------------------------------------------------+
 |  All tables and the number of rows in each table ordered by number of rows descending   |
@@ -172,13 +172,13 @@ EctoMySQLExtras.records_rank(EctoExtrasLiveDashboard.MySQLRepo, format: :ascii)
 Shows an estimated count of rows per table, descending by estimated count. Additionally a table can be passed to only get an estimated count from that table.
 
 ```
-EctoMySQLExtras.records_rank(EctoExtrasLiveDashboard.MySQLRepo, format: :ascii, args: [table: "my_table"])
+EctoMySQLExtras.records_rank(MyApp.Repo, format: :ascii, args: [table: "my_table"])
 ```
 
 ### `table_indexes_size`
 
 ```
-EctoMySQLExtras.table_indexes_size(EctoExtrasLiveDashboard.MySQLRepo, format: :ascii)
+EctoMySQLExtras.table_indexes_size(MyApp.Repo, format: :ascii)
 
 +------------------------------------------------------------------------------------------------+
 |  Total size of all the indexes on each table (excluding PRIMARY indexes), descending by size   |
@@ -193,13 +193,13 @@ EctoMySQLExtras.table_indexes_size(EctoExtrasLiveDashboard.MySQLRepo, format: :a
 Shows the total size of all indexes in a table, descending by size. Primary indexes are not included. This also requires InnoDB as engine. Additionally a table can be passed to only get the total size of all indexes from that table.
 
 ```
-EctoMySQLExtras.table_indexes_size(EctoExtrasLiveDashboard.MySQLRepo, format: :ascii, args: [table: "my_table"])
+EctoMySQLExtras.table_indexes_size(MyApp.Repo, format: :ascii, args: [table: "my_table"])
 ```
 
 ### `table_size`
 
 ```
-EctoMySQLExtras.table_size(EctoExtrasLiveDashboard.MySQLRepo, format: :ascii)
+EctoMySQLExtras.table_size(MyApp.Repo, format: :ascii)
 
 +----------------------------------------------------------------------+
 |      Size of the tables (excluding indexes), descending by size      |
@@ -214,13 +214,13 @@ EctoMySQLExtras.table_size(EctoExtrasLiveDashboard.MySQLRepo, format: :ascii)
 Shows the table size of each table in the database excluding indexes, descending by size. Additionally a table can be passed to only get the size from that table.
 
 ```
-EctoMySQLExtras.table_size(EctoExtrasLiveDashboard.MySQLRepo, format: :ascii, args: [table: "my_table"])
+EctoMySQLExtras.table_size(MyApp.Repo, format: :ascii, args: [table: "my_table"])
 ```
 
 ### `total_index_size`
 
 ```
-EctoMySQLExtras.total_index_size(EctoExtrasLiveDashboard.MySQLRepo, format: :ascii)
+EctoMySQLExtras.total_index_size(MyApp.Repo, format: :ascii)
 
 +-------------------------------------------------------------+
 | Total size of all indexes (excluding PRIMARY indexes) in MB |
@@ -236,7 +236,7 @@ Shows the total index size of all tables in the database, primary indexes are no
 ### `total_table_size`
 
 ```
-EctoMySQLExtras.total_table_size(EctoExtrasLiveDashboard.MySQLRepo, format: :ascii)
+EctoMySQLExtras.total_table_size(MyApp.Repo, format: :ascii)
 
 +----------------------------------------------------------------------+
 |      Size of the tables (including indexes), descending by size      |
@@ -251,13 +251,13 @@ EctoMySQLExtras.total_table_size(EctoExtrasLiveDashboard.MySQLRepo, format: :asc
 Shows the total table size of each table in the database including indexes, descending by size. Additionally a table can be passed to only get the total size from that table.
 
 ```
-EctoMySQLExtras.total_table_size(EctoExtrasLiveDashboard.MySQLRepo, format: :ascii, args: [table: "my_table"])
+EctoMySQLExtras.total_table_size(MyApp.Repo, format: :ascii, args: [table: "my_table"])
 ```
 
 ### `unused_indexes`
 
 ```
-EctoMySQLExtras.unused_indexes(EctoExtrasLiveDashboard.MySQLRepo, format: :ascii)
+EctoMySQLExtras.unused_indexes(MyApp.Repo, format: :ascii)
 
 +-----------------------------------------------------------------------------------------------------------------+
 |                                        Unused and almost unused indexes                                         |
