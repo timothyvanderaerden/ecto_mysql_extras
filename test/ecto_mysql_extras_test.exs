@@ -105,24 +105,26 @@ defmodule EctoMySQLExtrasTest do
     end
   end
 
-  describe "format_value" do
+  describe "format_ascii" do
     test "bytes" do
-      assert EctoMySQLExtras.Output.format_value({0, :bytes}) == "0 bytes"
-      assert EctoMySQLExtras.Output.format_value({1000, :bytes}) == "1000 bytes"
-      assert EctoMySQLExtras.Output.format_value({1024, :bytes}) == "1.0 KB"
-      assert EctoMySQLExtras.Output.format_value({1200, :bytes}) == "1.2 KB"
-      assert EctoMySQLExtras.Output.format_value({1024 * 1024, :bytes}) == "1.0 MB"
-      assert EctoMySQLExtras.Output.format_value({1024 * 1200, :bytes}) == "1.2 MB"
-      assert EctoMySQLExtras.Output.format_value({1024 * 1024 * 1024, :bytes}) == "1.0 GB"
-      assert EctoMySQLExtras.Output.format_value({1024 * 1024 * 1200, :bytes}) == "1.2 GB"
-      assert EctoMySQLExtras.Output.format_value({1024 * 1024 * 1024 * 1024, :bytes}) == "1.0 TB"
+      assert EctoMySQLExtras.OutputAscii.format_value({0, :bytes}) == "0 bytes"
+      assert EctoMySQLExtras.OutputAscii.format_value({1000, :bytes}) == "1000 bytes"
+      assert EctoMySQLExtras.OutputAscii.format_value({1024, :bytes}) == "1.0 KB"
+      assert EctoMySQLExtras.OutputAscii.format_value({1200, :bytes}) == "1.2 KB"
+      assert EctoMySQLExtras.OutputAscii.format_value({1024 * 1024, :bytes}) == "1.0 MB"
+      assert EctoMySQLExtras.OutputAscii.format_value({1024 * 1200, :bytes}) == "1.2 MB"
+      assert EctoMySQLExtras.OutputAscii.format_value({1024 * 1024 * 1024, :bytes}) == "1.0 GB"
+      assert EctoMySQLExtras.OutputAscii.format_value({1024 * 1024 * 1200, :bytes}) == "1.2 GB"
 
-      assert EctoMySQLExtras.Output.format_value({1024 * 1024 * 1024 * 1024 * 1024, :bytes}) ==
+      assert EctoMySQLExtras.OutputAscii.format_value({1024 * 1024 * 1024 * 1024, :bytes}) ==
+               "1.0 TB"
+
+      assert EctoMySQLExtras.OutputAscii.format_value({1024 * 1024 * 1024 * 1024 * 1024, :bytes}) ==
                "1024.0 TB"
     end
 
     test "integer" do
-      assert EctoMySQLExtras.Output.format_value({0, :integer}) == "0"
+      assert EctoMySQLExtras.OutputAscii.format_value({0, :integer}) == "0"
     end
   end
 
