@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.4.0
+### Added
+* Test MariaDB 10.2, 10.3, 10.4 in CI
+
 ## v0.3.0
 ### Added
 * Test MariaDB 10.6 in CI
