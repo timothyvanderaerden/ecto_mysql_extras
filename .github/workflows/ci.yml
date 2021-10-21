@@ -50,6 +50,7 @@ jobs:
         if: steps.mix-cache.outputs.cache-hit != 'true'
         run: |
           mix deps.get
+          mix deps.unlock --check-unused
           mix deps.compile
 
       - name: Create PLTs
