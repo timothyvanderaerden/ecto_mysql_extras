@@ -14,7 +14,7 @@ defmodule EctoMySQLExtras do
 
   @type repo() :: module() | {module(), node()}
 
-  @check_database [:db_settings, :long_running_queries]
+  @check_database [:db_settings, :db_status, :long_running_queries]
 
   @spec queries(repo()) :: map()
   def queries(_repo \\ nil) do
@@ -89,7 +89,11 @@ defmodule EctoMySQLExtras do
       |> String.downcase()
 
     if String.contains?(version, "mariadb") do
-      [db: :mariadb, version: version]
+      semver = String.split(version, ".")
+      major_version = semver |> Enum.at(0) |> String.to_integer()
+      minor_version = semver |> Enum.at(1) |> String.to_integer()
+
+      [db: :mariadb, version: version, major_version: major_version, minor_version: minor_version]
     else
       [db: :mysql, version: version]
     end

@@ -17,12 +17,23 @@ defmodule EctoMySQLExtras.DbStatus do
     }
   end
 
-  def query(_args \\ []) do
+  def query(args \\ []) do
+    schema =
+      if args[:db] == :mysql do
+        "performance_schema"
+      else
+        if args[:major_version] == 10 and args[:minor_version] < 5 do
+          "information_schema"
+        else
+          "performance_schema"
+        end
+      end
+
     """
     /* ECTO_MYSQL_EXTRAS: #{info().title} */
 
     SELECT VARIABLE_NAME AS `name`, VARIABLE_VALUE AS `value`
-    FROM performance_schema.global_status
+    FROM #{schema}.global_status
     WHERE VARIABLE_NAME IN (
       'Aborted_clients',
       'Aborted_connects',

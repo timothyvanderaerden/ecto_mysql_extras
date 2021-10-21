@@ -4,6 +4,9 @@
 ### Added
 * Test MariaDB 10.2, 10.3, 10.4 in CI
 
+### Changed
+* Deleted `max_memory_used` from Long running queries
+
 ## v0.3.0
 ### Added
 * Test MariaDB 10.6 in CI

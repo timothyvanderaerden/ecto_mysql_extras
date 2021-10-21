@@ -23,8 +23,7 @@ defmodule EctoMySQLExtras.LongRunningQueries do
         %{name: :host, type: :string},
         %{name: :duration, type: :integer},
         %{name: :query, type: :string},
-        %{name: :memory_used, type: :bytes},
-        %{name: :max_memory_used, type: :bytes}
+        %{name: :memory_used, type: :bytes}
       ]
     }
   end
@@ -52,8 +51,7 @@ defmodule EctoMySQLExtras.LongRunningQueries do
           HOST AS `host`,
           TIME AS `duration`,
           INFO AS `query`,
-          NULL AS `memory_used`,
-          NULL AS `max_memory_used`
+          NULL AS `memory_used`
         FROM #{from}
         WHERE DB = DATABASE()
         AND COMMAND <> 'Sleep'
@@ -69,8 +67,7 @@ defmodule EctoMySQLExtras.LongRunningQueries do
           HOST AS `host`,
           TIME_MS AS `duration`,
           INFO AS `query`,
-          MEMORY_USED AS `memory_used`,
-          MAX_MEMORY_USED AS `max_memory_used`
+          MEMORY_USED AS `memory_used`
         FROM information_schema.PROCESSLIST
         WHERE DB = DATABASE()
         AND COMMAND <> 'Sleep'
