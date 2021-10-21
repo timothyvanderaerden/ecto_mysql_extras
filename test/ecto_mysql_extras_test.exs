@@ -164,16 +164,16 @@ defmodule EctoMySQLExtrasTest do
       assert EctoMySQLExtras.LongRunningQueries.query(db: :mariadb, threshold: 500) =~
                "TIME_MS > 500"
 
-      assert EctoMySQLExtras.DbSettings.query(db: :mariadb, major_version: 10, minor_version: 5) =~
+      assert EctoMySQLExtras.DbStatus.query(db: :mariadb, major_version: 10, minor_version: 5) =~
                "performance_schema"
 
-      assert EctoMySQLExtras.DbSettings.query(db: :mariadb, major_version: 10, minor_version: 2) =~
+      assert EctoMySQLExtras.DbStatus.query(db: :mariadb, major_version: 10, minor_version: 2) =~
                "information_schema"
 
-      assert EctoMySQLExtras.DbSettings.query(db: :mariadb, major_version: 10, minor_version: 3) =~
+      assert EctoMySQLExtras.DbStatus.query(db: :mariadb, major_version: 10, minor_version: 3) =~
                "information_schema"
 
-      assert EctoMySQLExtras.DbSettings.query(db: :mariadb, major_version: 10, minor_version: 4) =~
+      assert EctoMySQLExtras.DbStatus.query(db: :mariadb, major_version: 10, minor_version: 4) =~
                "information_schema"
     end
   end
