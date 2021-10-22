@@ -81,22 +81,14 @@ defmodule EctoMySQLExtras do
   end
 
   # Not sure if this is the best way to retreive the database
-  defp which_database(repo) do
+  defp get_database_and_version(repo) do
     version =
       query!(repo, "SHOW VARIABLES LIKE 'version'")
       |> (&Enum.at(&1.rows, 0)).()
       |> (&Enum.at(&1, 1)).()
       |> String.downcase()
 
-    if String.contains?(version, "mariadb") do
-      semver = String.split(version, ".")
-      major_version = semver |> Enum.at(0) |> String.to_integer()
-      minor_version = semver |> Enum.at(1) |> String.to_integer()
-
-      [db: :mariadb, version: version, major_version: major_version, minor_version: minor_version]
-    else
-      [db: :mysql, version: version]
-    end
+    which_database(version) ++ which_version(version)
   end
 
   @spec db_settings(repo(), keyword()) :: :ok | MyXQL.Result.t()
@@ -150,9 +142,25 @@ defmodule EctoMySQLExtras do
   end
 
   defp database_opts(opts, repo, query) when query in @check_database do
-    database = which_database(repo)
+    database = get_database_and_version(repo)
     Keyword.merge(database, opts)
   end
 
   defp database_opts(opts, _repo, _query), do: opts
+
+  defp which_database(version) do
+    if String.contains?(version, "mariadb") do
+      [db: :mariadb]
+    else
+      [db: :mysql]
+    end
+  end
+
+  defp which_version(version) do
+    semver = String.split(version, ".")
+    major_version = semver |> Enum.at(0) |> String.to_integer()
+    minor_version = semver |> Enum.at(1) |> String.to_integer()
+
+    [version: version, major_version: major_version, minor_version: minor_version]
+  end
 end
