@@ -1,6 +1,6 @@
 defmodule EctoMySQLExtras.IndexSize do
   @moduledoc """
-  Query the size of each index in the Ecto Repo database.
+  Query the size of each index in the `Ecto.Repo` database.
 
   Data is retrieved from the `mysql` database and the `innodb_index_stats` table.
   This query will only work for databases that use `InnoDB` engine.

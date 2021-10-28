@@ -80,7 +80,7 @@ defmodule EctoMySQLExtras do
     repo.query!(query)
   end
 
-  # Not sure if this is the best way to retreive the database
+  # Not sure if this is the best way to retrieve the database
   defp get_database_and_version(repo) do
     version =
       query!(repo, "SHOW VARIABLES LIKE 'version'")

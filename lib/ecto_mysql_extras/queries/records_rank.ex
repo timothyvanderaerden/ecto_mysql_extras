@@ -1,6 +1,6 @@
 defmodule EctoMySQLExtras.RecordsRank do
   @moduledoc """
-  Query the estimated rows of each table in the Ecto Repo database.
+  Query the estimated rows of each table in the `Ecto.Repo` database.
 
   Data is retrieved from the `information_schema` database and the `tables` table.
   """
