@@ -1,8 +1,12 @@
 # Ecto MySQL Extras
 
-[![Hex](https://img.shields.io/hexpm/v/ecto_mysql_extras.svg)](https://hex.pm/packages/ecto_mysql_extras)
 [![CI](https://github.com/timothyvanderaerden/ecto_mysql_extras/actions/workflows/ci.yml/badge.svg)](https://github.com/optimise-group/bifrost/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/timothyvanderaerden/ecto_mysql_extras/branch/main/graph/badge.svg?token=IJMNEMI6CE)](https://codecov.io/gh/timothyvanderaerden/ecto_mysql_extras)
+[![Module Version](https://img.shields.io/hexpm/v/ecto_mysql_extras.svg)](https://hex.pm/packages/ecto_mysql_extras)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/ecto_mysql_extras/)
+[![Total Download](https://img.shields.io/hexpm/dt/ecto_mysql_extras.svg)](https://hex.pm/packages/ecto_mysql_extras)
+[![License](https://img.shields.io/hexpm/l/ecto_mysql_extras.svg)](https://github.com/timothyvanderaerden/ecto_mysql_extras/blob/master/LICENSE)
+[![Last Updated](https://img.shields.io/github/last-commit/timothyvanderaerden/ecto_mysql_extras.svg)](https://github.com/timothyvanderaerden/ecto_mysql_extras/commits/master)
 
 This library provides performance insight information on MySQL (and MariaDB) databases.
 It's heavily based upon [Ecto PSQL Extras](https://github.com/pawurb/ecto_psql_extras), it reuses most of the design.
@@ -18,7 +22,7 @@ Newer version are tested every week to check for any compatibility issues.
 
 ## Installation
 
-The package can be installed by adding `ecto_mysql_extras` to your list of dependencies in `mix.exs`:
+The package can be installed by adding `:ecto_mysql_extras` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -273,7 +277,21 @@ Shows all the indexes that are not used, the database should be running for a wh
 
 ## Ecto MySQL Extras differences
 
-Except for the "obvious" difference that `Ecto MySQL Extras` provides information on MySQL (MariaDB) databases and `Ecto PSQL Extras` on PostgreSQL databases, there are some small differences. Below is a list which could be usefull if you're already using `Ecto PSQL Extras` and want to try `Ecto MySQL Extras`.
+Except for the "obvious" difference that `Ecto MySQL Extras` provides information on MySQL (MariaDB) databases and `Ecto PSQL Extras` on PostgreSQL databases, there are some small differences. Below is a list which could be useful if you're already using `Ecto PSQL Extras` and want to try `Ecto MySQL Extras`.
 
 * `:table_rex` is an optional dependency.
 * The default format is `:raw` instead of `:ascii`.
+
+## Copyright and License
+
+Copyright (c) 2021 Timothy Vanderaerden
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at [https://www.apache.org/licenses/LICENSE-2.0](https://www.apache.org/licenses/LICENSE-2.0).
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

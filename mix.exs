@@ -13,7 +13,6 @@ defmodule EctoMySQLExtras.MixProject do
       start_permanent: Mix.env() == :prod,
       name: "Ecto MySQL Extras",
       description: "Ecto MySQL (and MariaDB) database performance insights.",
-      source_url: @source_url,
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: preferred_cli_env(),
       dialyzer: dialyzer(),
@@ -54,9 +53,15 @@ defmodule EctoMySQLExtras.MixProject do
 
   defp docs() do
     [
-      source_ref: "v#{@version}",
+      extras: [
+        "CHANGELOG.md": [],
+        LICENSE: [title: "License"],
+        "README.md": [title: "Overview"]
+      ],
       main: "readme",
-      extras: ["README.md"]
+      source_url: @source_url,
+      source_ref: "v#{@version}",
+      formatters: ["html"]
     ]
   end
 

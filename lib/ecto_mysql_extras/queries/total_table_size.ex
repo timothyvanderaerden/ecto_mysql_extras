@@ -1,6 +1,6 @@
 defmodule EctoMySQLExtras.TotalTableSize do
   @moduledoc """
-  Query the total size of each table in the Ecto Repo database.
+  Query the total size of each table in the `Ecto.Repo` database.
 
   Data is retrieved from the `information_schema` database and the `tables` table.
   """

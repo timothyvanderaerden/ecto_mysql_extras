@@ -1,6 +1,6 @@
 defmodule EctoMySQLExtras.OutputAscii do
   @moduledoc """
-  Output MySQL queries to ASCII format using table_rex.
+  Output MySQL queries to ASCII format using `:table_rex` library.
   """
   if Code.ensure_loaded?(TableRex) do
     def format(info, result) do
