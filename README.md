@@ -13,7 +13,7 @@ It's heavily based upon [Ecto PSQL Extras](https://github.com/pawurb/ecto_psql_e
 
 This library is an optional dependency of [Phoenix.LiveDashboard](https://hexdocs.pm/phoenix_live_dashboard/Phoenix.LiveDashboard.html).
 
-![Phoenix Ecto LiveDashboard](https://github.com/timothyvanderaerden/ecto_mysql_extras/raw/master/phoenix_live_dashboard.png)
+![Phoenix Ecto LiveDashboard](https://github.com/timothyvanderaerden/ecto_mysql_extras/raw/main/phoenix_live_dashboard.png)
 
 Currently only `InnoDB` is supported, other engines may work but not all queries will return all or correct data.
 
