@@ -26,7 +26,7 @@ jobs:
     strategy:
       matrix:
         otp: ["24"]
-        elixir: ["1.12"]
+        elixir: ["1.12", "1.13"]
 
     steps:
       - name: Checkout commit
@@ -64,7 +64,7 @@ jobs:
     strategy:
       matrix:
         otp: ["24"]
-        elixir: ["1.12"]
+        elixir: ["1.13"]
 
     steps:
       - name: Checkout commit
@@ -95,7 +95,7 @@ jobs:
     strategy:
       matrix:
         otp: ["24"]
-        elixir: ["1.12"]
+        elixir: ["1.13"]
 
     steps:
       - name: Checkout commit
@@ -127,7 +127,7 @@ jobs:
       fail-fast: false
       matrix:
         otp: ["24"]
-        elixir: ["1.12"]
+        elixir: ["1.13"]
 
     steps:
       - name: Checkout commit
@@ -169,7 +169,7 @@ jobs:
             "mariadb:10.6",
           ]
         otp: ["24"]
-        elixir: ["1.12"]
+        elixir: ["1.12", "1.13"]
     env:
       MIX_ENV: test
     services:
@@ -224,7 +224,7 @@ jobs:
       fail-fast: false
       matrix:
         otp: ["24"]
-        elixir: ["1.12"]
+        elixir: ["1.13"]
     env:
       MIX_ENV: test
     services:

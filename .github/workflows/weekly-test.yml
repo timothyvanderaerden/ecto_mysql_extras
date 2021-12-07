@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         otp: ["24"]
-        elixir: ["1.12"]
+        elixir: ["1.13"]
 
     steps:
       - name: Checkout commit
@@ -57,7 +57,7 @@ jobs:
       matrix:
         db: ["mysql:latest", "mariadb:latest"]
         otp: ["24"]
-        elixir: ["1.12"]
+        elixir: ["1.13"]
     env:
       MIX_ENV: test
     services:
