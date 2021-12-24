@@ -19,6 +19,7 @@ defmodule EctoMySQLExtras do
     :db_status,
     :dirty_pages_ratio,
     :long_running_queries,
+    :table_cache,
     :waits_for_checkpoint,
     :waits_for_redolog
   ]
@@ -33,6 +34,7 @@ defmodule EctoMySQLExtras do
       long_running_queries: EctoMySQLExtras.LongRunningQueries,
       plugins: EctoMySQLExtras.Plugins,
       records_rank: EctoMySQLExtras.RecordsRank,
+      table_cache: EctoMySQLExtras.TableCache,
       table_indexes_size: EctoMySQLExtras.TableIndexesSize,
       table_size: EctoMySQLExtras.TableSize,
       total_index_size: EctoMySQLExtras.TotalIndexSize,
@@ -121,6 +123,9 @@ defmodule EctoMySQLExtras do
 
   @spec plugins(repo(), keyword()) :: :ok | MyXQL.Result.t()
   def plugins(repo, opts \\ []), do: query(:plugins, repo, opts)
+
+  @spec table_cache(repo(), keyword()) :: :ok | MyXQL.Result.t()
+  def table_cache(repo, opts \\ []), do: query(:table_cache, repo, opts)
 
   @spec table_indexes_size(repo(), keyword()) :: :ok | MyXQL.Result.t()
   def table_indexes_size(repo, opts \\ []), do: query(:table_indexes_size, repo, opts)
