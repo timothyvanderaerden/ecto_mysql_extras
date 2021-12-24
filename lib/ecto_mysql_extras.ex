@@ -14,11 +14,12 @@ defmodule EctoMySQLExtras do
 
   @type repo() :: module() | {module(), node()}
 
-  @check_database [:db_settings, :db_status, :long_running_queries]
+  @check_database [:cache_hit, :db_settings, :db_status, :long_running_queries]
 
   @spec queries(repo()) :: map()
   def queries(_repo \\ nil) do
     %{
+      cache_hit: EctoMySQLExtras.CacheHit,
       db_settings: EctoMySQLExtras.DbSettings,
       db_status: EctoMySQLExtras.DbStatus,
       index_size: EctoMySQLExtras.IndexSize,
@@ -90,6 +91,9 @@ defmodule EctoMySQLExtras do
 
     which_database(version) ++ which_version(version)
   end
+
+  @spec cache_hit(repo(), keyword()) :: :ok | MyXQL.Result.t()
+  def cache_hit(repo, opts \\ []), do: query(:cache_hit, repo, opts)
 
   @spec db_settings(repo(), keyword()) :: :ok | MyXQL.Result.t()
   def db_settings(repo, opts \\ []), do: query(:db_settings, repo, opts)
