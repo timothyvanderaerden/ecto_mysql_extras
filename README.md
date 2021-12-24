@@ -315,6 +315,24 @@ Shows the ratio of how often InnoDB needs to read or create a page where no clea
 A good ratio value should stay below 1. If `wait_counter` is greater than 0, it is a strong indicator that the InnoDB buffer pool is too small,
 and operations had to wait on a checkpoint.
 
+### `waits_for_redolog`
+
+```
+EctoMySQLExtras.waits_for_redolog(MyApp.Repo, format: :ascii)
+
++----------------------------------+
+| The ratio of redo log contention |
++-------------+--------------------+
+| ratio       | wait_counter       |
++-------------+--------------------+
+| 0.0         | "0"                |
++-------------+--------------------+
+```
+
+Shows the ratio of redo log contention. A good ratio value should stay below 1.
+Check `wait_counter` and if it continues to increase then it is a strong indicator that the InnoDB buffer pool is too small.
+It can also mean that the disks are too slow and cannot sustain the disk IO, perhaps due to peak write load.
+
 ## Note
 
 Some queries use the `information_schema` table which can cause performance issues when executing on a busy system. Everywhere where possible the `performance_schema` is used instead, but depending on the version and database this might not be available.
