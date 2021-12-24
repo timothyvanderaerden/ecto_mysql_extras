@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 * Set Elixir to v1.13 (650da1e)
+* InnoDB Dirty pages ratio query #11
 
 ## v0.3.1 (2021-11-03)
 ### Added
