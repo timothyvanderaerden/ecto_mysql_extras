@@ -19,7 +19,8 @@ defmodule EctoMySQLExtras do
     :db_status,
     :dirty_pages_ratio,
     :long_running_queries,
-    :waits_for_checkpoint
+    :waits_for_checkpoint,
+    :waits_for_redolog
   ]
 
   @spec queries(repo()) :: map()
@@ -37,7 +38,8 @@ defmodule EctoMySQLExtras do
       total_index_size: EctoMySQLExtras.TotalIndexSize,
       total_table_size: EctoMySQLExtras.TotalTableSize,
       unused_indexes: EctoMySQLExtras.UnusedIndexes,
-      waits_for_checkpoint: EctoMySQLExtras.WaitsForCheckpoint
+      waits_for_checkpoint: EctoMySQLExtras.WaitsForCheckpoint,
+      waits_for_redolog: EctoMySQLExtras.WaitsForRedolog
     }
   end
 
@@ -137,6 +139,9 @@ defmodule EctoMySQLExtras do
 
   @spec waits_for_checkpoint(repo(), keyword()) :: :ok | MyXQL.Result.t()
   def waits_for_checkpoint(repo, opts \\ []), do: query(:waits_for_checkpoint, repo, opts)
+
+  @spec waits_for_redolog(repo(), keyword()) :: :ok | MyXQL.Result.t()
+  def waits_for_redolog(repo, opts \\ []), do: query(:waits_for_redolog, repo, opts)
 
   defp default_opts(opts, nil), do: default_opts(opts, [])
 

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Set Elixir to v1.13 (650da1e)
 * InnoDB Dirty pages ratio query #11
 * InnoDB Waits for checkpoint query #12
+* InnoDB Waits for redolog query #13
 
 ## v0.3.1 (2021-11-03)
 ### Added
