@@ -2,7 +2,7 @@ defmodule EctoMySQLExtras.CacheHit do
   @moduledoc """
   Query cache hit rate.
 
-  Data is retrieved from the `information_schema` database and the `plugins` table.
+  Data is retrieved from the `performance_schema` or `information_schema` database and the `global_status` table.
   """
   @behaviour EctoMySQLExtras
 
