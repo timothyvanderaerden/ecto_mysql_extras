@@ -12,7 +12,7 @@ defmodule EctoMySQLExtras.DirtyPagesRatio do
 
   def info do
     %{
-      title: "InnoDB Dirty Pages Ratio",
+      title: "The ratio of how often InnoDB needs to be flushed",
       columns: [
         %{name: :ratio, type: :numeric},
         %{name: :total_pages, type: :integer}
