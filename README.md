@@ -312,6 +312,8 @@ EctoMySQLExtras.waits_for_checkpoint(MyApp.Repo, format: :ascii)
 ```
 
 Shows the ratio of how often InnoDB needs to read or create a page where no clean pages are available.
+A good ratio value should stay below 1. If `wait_counter` is greater than 0, it is a strong indicator that the InnoDB buffer pool is too small,
+and operations had to wait on a checkpoint.
 
 ## Note
 
