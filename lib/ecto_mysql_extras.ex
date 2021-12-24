@@ -14,7 +14,7 @@ defmodule EctoMySQLExtras do
 
   @type repo() :: module() | {module(), node()}
 
-  @check_database [:db_settings, :db_status, :long_running_queries]
+  @check_database [:db_settings, :db_status, :dirty_pages_ratio, :long_running_queries]
 
   @spec queries(repo()) :: map()
   def queries(_repo \\ nil) do
