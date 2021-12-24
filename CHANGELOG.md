@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## v0.4.0 (2021-12-24)
 ### Added
 * Set Elixir to v1.13 (650da1e)
 * InnoDB Dirty pages ratio query #11
