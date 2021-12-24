@@ -38,7 +38,7 @@ end
 
 ### MySQL/MariaDB configuration
 
-The configured user should have read (SELECT) access on the `mysql`, `information_schema` and `performance_schema` database. Specifaccly for the following schemas:
+The configured user should have read (SELECT) access on the `mysql`, `information_schema` and `performance_schema` database. Specifically for the following schemas:
 
 * `mysql.innodb_index_stats`
 * `performance_schema.table_io_waits_summary_by_index_usage`
@@ -278,6 +278,10 @@ EctoMySQLExtras.unused_indexes(MyApp.Repo, format: :ascii)
 ```
 
 Shows all the indexes that are not used, the database should be running for a while to have the best results since it's based upon IO activity. This also requires InnoDB as engine.
+
+## Note
+
+Some queries use the `information_schema` table which can cause performance issues when executing on a busy system. Everywhere where possible the `performance_schema` is used instead, but depending on the version and database this might not be available.
 
 ## Ecto MySQL Extras differences
 
