@@ -134,6 +134,10 @@ defmodule EctoMySQLExtrasTest do
     test "mysql" do
       assert EctoMySQLExtras.DbSettings.query(db: :mysql) =~ "performance_schema"
 
+      assert EctoMySQLExtras.DbStatus.query(db: :mysql) =~ "performance_schema"
+
+      assert EctoMySQLExtras.DirtyPagesRatio.query(db: :mysql) =~ "performance_schema"
+
       assert EctoMySQLExtras.LongRunningQueries.query(
                db: :mysql,
                version: "8.0.0",
@@ -153,16 +157,16 @@ defmodule EctoMySQLExtrasTest do
                version: "8.0.0",
                threshold: 1000
              ) =~ "TIME > 1"
+
+      assert EctoMySQLExtras.TableCache.query(db: :mysql) =~ "performance_schema"
+
+      assert EctoMySQLExtras.WaitsForCheckpoint.query(db: :mysql) =~ "performance_schema"
+
+      assert EctoMySQLExtras.WaitsForRedolog.query(db: :mysql) =~ "performance_schema"
     end
 
     test "mariadb" do
       assert EctoMySQLExtras.DbSettings.query(db: :mariadb) =~ "information_schema"
-
-      assert EctoMySQLExtras.LongRunningQueries.query(db: :mariadb, threshold: 500) =~
-               "information_schema"
-
-      assert EctoMySQLExtras.LongRunningQueries.query(db: :mariadb, threshold: 500) =~
-               "TIME_MS > 500"
 
       assert EctoMySQLExtras.DbStatus.query(db: :mariadb, major_version: 10, minor_version: 5) =~
                "performance_schema"
@@ -175,6 +179,20 @@ defmodule EctoMySQLExtrasTest do
 
       assert EctoMySQLExtras.DbStatus.query(db: :mariadb, major_version: 10, minor_version: 4) =~
                "information_schema"
+
+      assert EctoMySQLExtras.DirtyPagesRatio.query(db: :mariadb) =~ "information_schema"
+
+      assert EctoMySQLExtras.LongRunningQueries.query(db: :mariadb, threshold: 500) =~
+               "information_schema"
+
+      assert EctoMySQLExtras.LongRunningQueries.query(db: :mariadb, threshold: 500) =~
+               "TIME_MS > 500"
+
+      assert EctoMySQLExtras.TableCache.query(db: :mariadb) =~ "information_schema"
+
+      assert EctoMySQLExtras.WaitsForCheckpoint.query(db: :mariadb) =~ "information_schema"
+
+      assert EctoMySQLExtras.WaitsForRedolog.query(db: :mariadb) =~ "information_schema"
     end
   end
 
