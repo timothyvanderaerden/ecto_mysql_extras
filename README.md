@@ -104,6 +104,24 @@ EctoMySQLExtras.db_status(MyApp.Repo, format: :ascii)
 
 Shows global status for selected MySQL server status.
 
+### `dirty_pages_ratio`
+
+```
+EctoMySQLExtras.dirty_pages_ratio(MyApp.Repo, format: :ascii)
+
++------------------------------------+
+|      InnoDB Dirty Pages Ratio      |
++----------------------+-------------+
+| ratio                | total_pages |
++----------------------+-------------+
+| 0.024798512089274645 | "8065"      |
++----------------------+-------------+
+```
+
+Shows InnoDB dirty pages ratio.
+The ratio of how often InnoDB needs to be flushed. During the write-heavy load, it is normal that this percentage increases.
+A good value should be 75% and below.
+
 ### `index_size`
 
 ```
@@ -289,6 +307,10 @@ Except for the "obvious" difference that `Ecto MySQL Extras` provides informatio
 
 * `:table_rex` is an optional dependency.
 * The default format is `:raw` instead of `:ascii`.
+
+## Query sources
+
+- https://severalnines.com/database-blog/monitoring-percona-server-mysql-key-metrics
 
 ## Copyright and License
 

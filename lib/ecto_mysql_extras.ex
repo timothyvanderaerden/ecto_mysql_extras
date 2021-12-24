@@ -21,6 +21,7 @@ defmodule EctoMySQLExtras do
     %{
       db_settings: EctoMySQLExtras.DbSettings,
       db_status: EctoMySQLExtras.DbStatus,
+      dirty_pages_ratio: EctoMySQLExtras.DirtyPagesRatio,
       index_size: EctoMySQLExtras.IndexSize,
       long_running_queries: EctoMySQLExtras.LongRunningQueries,
       plugins: EctoMySQLExtras.Plugins,
@@ -96,6 +97,9 @@ defmodule EctoMySQLExtras do
 
   @spec db_status(repo(), keyword()) :: :ok | MyXQL.Result.t()
   def db_status(repo, opts \\ []), do: query(:db_status, repo, opts)
+
+  @spec dirty_pages_ratio(repo(), keyword()) :: :ok | MyXQL.Result.t()
+  def dirty_pages_ratio(repo, opts \\ []), do: query(:dirty_pages_ratio, repo, opts)
 
   @spec index_size(repo(), keyword()) :: :ok | MyXQL.Result.t()
   def index_size(repo, opts \\ []), do: query(:index_size, repo, opts)
