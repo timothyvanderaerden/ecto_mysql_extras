@@ -5,7 +5,6 @@ defmodule EctoMySQLExtras.DirtyPagesRatio do
   The ratio of how often InnoDB needs to be flushed. During the write-heavy load,
   it is normal that this percentage increases. A good value should be 75% and below.
 
-
   Data is retrieved from the `performance_schema` or `information_schema` database and the `global_status` table.
   """
   @behaviour EctoMySQLExtras
