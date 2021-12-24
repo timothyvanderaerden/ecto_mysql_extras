@@ -201,6 +201,26 @@ Shows an estimated count of rows per table, descending by estimated count. Addit
 EctoMySQLExtras.records_rank(MyApp.Repo, format: :ascii, args: [table: "my_table"])
 ```
 
+### `table_cache`
+
+```
+EctoMySQLExtras.table_cache(MyApp.Repo, format: :ascii)
+
++----------------------------------------+
+|           Table cache ratio            |
++--------------------+-------------------+
+| cache_ratio        | hit_ratio         |
++--------------------+-------------------+
+| 10.567458019687319 | 98.08219178082192 |
++--------------------+-------------------+
+```
+
+- `cache_ratio`: The ratio of table cache usage for all threads.
+  A good value should be less than 80%. Increase the table_open_cache variable until the percentage reaches a good value.
+- `hit_ratio`: The ratio of table cache hit usage.
+  A good hit ratio value should be 90% and above. Otherwise, increase the table_open_cache variable until the hit ratio reaches a good value
+
+
 ### `table_indexes_size`
 
 ```
