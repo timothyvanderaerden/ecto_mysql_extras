@@ -297,6 +297,22 @@ EctoMySQLExtras.unused_indexes(MyApp.Repo, format: :ascii)
 
 Shows all the indexes that are not used, the database should be running for a while to have the best results since it's based upon IO activity. This also requires InnoDB as engine.
 
+### `waits_for_checkpoint`
+
+```
+EctoMySQLExtras.waits_for_checkpoint(MyApp.Repo, format: :ascii)
+
++--------------------------------------------------------------------------------------------------+
+| The ratio of how often InnoDB needs to read or create a page where no clean pages are available  |
++---------------------------------------------+----------------------------------------------------+
+| ratio                                       | wait_counter                                       |
++---------------------------------------------+----------------------------------------------------+
+| 0.0                                         | "0"                                                |
++---------------------------------------------+----------------------------------------------------+
+```
+
+Shows the ratio of how often InnoDB needs to read or create a page where no clean pages are available.
+
 ## Note
 
 Some queries use the `information_schema` table which can cause performance issues when executing on a busy system. Everywhere where possible the `performance_schema` is used instead, but depending on the version and database this might not be available.

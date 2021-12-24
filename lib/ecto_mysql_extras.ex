@@ -30,7 +30,8 @@ defmodule EctoMySQLExtras do
       table_size: EctoMySQLExtras.TableSize,
       total_index_size: EctoMySQLExtras.TotalIndexSize,
       total_table_size: EctoMySQLExtras.TotalTableSize,
-      unused_indexes: EctoMySQLExtras.UnusedIndexes
+      unused_indexes: EctoMySQLExtras.UnusedIndexes,
+      waits_for_checkpoint: EctoMySQLExtras.WaitsForCheckpoint
     }
   end
 
@@ -127,6 +128,9 @@ defmodule EctoMySQLExtras do
 
   @spec unused_indexes(repo(), keyword()) :: :ok | MyXQL.Result.t()
   def unused_indexes(repo, opts \\ []), do: query(:unused_indexes, repo, opts)
+
+  @spec waits_for_checkpoint(repo(), keyword()) :: :ok | MyXQL.Result.t()
+  def waits_for_checkpoint(repo, opts \\ []), do: query(:waits_for_checkpoint, repo, opts)
 
   defp default_opts(opts, nil), do: default_opts(opts, [])
 
