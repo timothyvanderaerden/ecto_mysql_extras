@@ -25,7 +25,11 @@ defmodule EctoMySQLExtras.DirtyPagesRatio do
       if args[:db] == :mysql do
         "performance_schema"
       else
-        "information_schema"
+        if args[:major_version] == 10 and args[:minor_version] < 5 do
+          "information_schema"
+        else
+          "performance_schema"
+        end
       end
 
     """
