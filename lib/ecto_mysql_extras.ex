@@ -97,7 +97,7 @@ defmodule EctoMySQLExtras do
     version =
       query!(repo, "SHOW VARIABLES LIKE 'version'")
       |> (&Enum.at(&1.rows, 0)).()
-      |> (&Enum.at(&1, 1)).()
+      |> Enum.at(1)
       |> String.downcase()
 
     which_database(version) ++ which_version(version)
