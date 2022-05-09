@@ -171,9 +171,6 @@ defmodule EctoMySQLExtrasTest do
       assert EctoMySQLExtras.DbStatus.query(db: :mariadb, major_version: 10, minor_version: 5) =~
                "performance_schema"
 
-      assert EctoMySQLExtras.DbStatus.query(db: :mariadb, major_version: 10, minor_version: 2) =~
-               "information_schema"
-
       assert EctoMySQLExtras.DbStatus.query(db: :mariadb, major_version: 10, minor_version: 3) =~
                "information_schema"
 
