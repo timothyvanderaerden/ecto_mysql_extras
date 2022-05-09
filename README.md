@@ -24,6 +24,8 @@ The following databases are supported:
 
 Newer version are tested every week to check for any compatibility issues.
 
+[![Test latest DB weekly](https://github.com/timothyvanderaerden/ecto_mysql_extras/actions/workflows/weekly-test.yml/badge.svg)](https://github.com/timothyvanderaerden/ecto_mysql_extras/actions/workflows/weekly-test.yml)
+
 ## Installation
 
 The package can be installed by adding `:ecto_mysql_extras` to your list of dependencies in `mix.exs`:
