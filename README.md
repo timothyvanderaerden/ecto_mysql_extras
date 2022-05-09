@@ -355,7 +355,7 @@ It can also mean that the disks are too slow and cannot sustain the disk IO, per
 
 ## Note
 
-Some queries use the `information_schema` table which can cause performance issues when executing on a busy system. Everywhere where possible the `performance_schema` is used instead, but depending on the version and database this might not be available.
+Some queries use the `information_schema` table which can cause performance issues when executing on a busy system. Use the `performance_schema` where possible, depending on the version and database this might not be available.
 
 ## Ecto MySQL Extras differences
 
