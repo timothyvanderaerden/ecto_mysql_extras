@@ -9,7 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v0.4.2 (2022-05-09)
 ### Changed
-* Bump deps (#19, #20, #21, #22, #23, #24, #25, #26, #28, #30. #31, #32, #33)
 * Drop MariaDB 10.2
 * Fix README.md links and docs
 
