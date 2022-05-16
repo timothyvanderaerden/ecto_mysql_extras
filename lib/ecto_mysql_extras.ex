@@ -12,6 +12,8 @@ defmodule EctoMySQLExtras do
               optional(:default_args) => list()
             }
 
+  @callback query(args :: [{:db, :atom}, {:version, String.t()}]) :: binary()
+
   @type repo() :: module() | {module(), node()}
 
   @check_database [
