@@ -12,7 +12,6 @@ defmodule EctoMySQLExtras do
               optional(:default_args) => list()
             }
 
-
   @type repo() :: module() | {module(), node()}
 
   @check_database [
