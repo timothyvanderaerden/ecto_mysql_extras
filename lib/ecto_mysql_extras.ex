@@ -63,11 +63,12 @@ defmodule EctoMySQLExtras do
   def query(query_name, repo, opts \\ []) do
     query_module = Map.fetch!(queries(), query_name)
     opts = default_opts(opts, query_module.info[:default_args])
+    args = Keyword.fetch!(opts, :args)
 
     result =
       query!(
         repo,
-        query_module.query(Keyword.fetch!(opts, :args) |> database_opts(repo, query_name))
+        query_module.query(database_opts(args, repo, query_name))
       )
 
     format(
