@@ -108,6 +108,7 @@
         {Credo.Check.Readability.Semicolons, []},
         {Credo.Check.Readability.SinglePipe, []},
         {Credo.Check.Readability.SpaceAfterCommas, []},
+        {Credo.Check.Readability.StrictModuleLayout, []},
         {Credo.Check.Readability.StringSigils, []},
         {Credo.Check.Readability.TrailingBlankLine, []},
         {Credo.Check.Readability.TrailingWhiteSpace, []},
