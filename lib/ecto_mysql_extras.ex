@@ -26,6 +26,8 @@ defmodule EctoMySQLExtras do
     :waits_for_redolog
   ]
 
+  @default_query_opts [log: false]
+
   @spec queries(repo()) :: map()
   def queries(_repo \\ nil) do
     %{
@@ -58,17 +60,22 @@ defmodule EctoMySQLExtras do
 
     * `:args` - Overwrites the default arguments for the given query. You can
       check the defaults of each query in its modules defined in this project.
+
+    * `:query_opts` - Overwrites the default options for the Ecto query.
+      Defaults to #{inspect(@default_query_opts)}
   """
   @spec query(atom(), repo(), keyword()) :: :ok | MyXQL.Result.t()
   def query(query_name, repo, opts \\ []) do
     query_module = Map.fetch!(queries(), query_name)
+    query_opts = Keyword.get(opts, :query_opts, @default_query_opts)
     opts = default_opts(opts, query_module.info[:default_args])
     args = Keyword.fetch!(opts, :args)
 
     result =
       query!(
         repo,
-        query_module.query(database_opts(args, repo, query_name))
+        query_module.query(database_opts(args, repo, query_name, query_opts)),
+        query_opts
       )
 
     format(
@@ -78,8 +85,8 @@ defmodule EctoMySQLExtras do
     )
   end
 
-  defp query!({repo, node}, query) do
-    case :rpc.call(node, repo, :query!, [query]) do
+  defp query!({repo, node}, query, query_opts) do
+    case :rpc.call(node, repo, :query!, [query, [], query_opts]) do
       {:badrpc, {:EXIT, {:undef, _}}} ->
         raise "repository is not defined on remote node"
 
@@ -91,14 +98,14 @@ defmodule EctoMySQLExtras do
     end
   end
 
-  defp query!(repo, query) do
-    repo.query!(query)
+  defp query!(repo, query, query_opts) do
+    repo.query!(query, [], query_opts)
   end
 
   # Not sure if this is the best way to retrieve the database
-  defp get_database_and_version(repo) do
+  defp get_database_and_version(repo, query_opts) do
     version =
-      query!(repo, "SHOW VARIABLES LIKE 'version'")
+      query!(repo, "SHOW VARIABLES LIKE 'version'", query_opts)
       |> (&Enum.at(&1.rows, 0)).()
       |> Enum.at(1)
       |> String.downcase()
@@ -168,12 +175,12 @@ defmodule EctoMySQLExtras do
     ]
   end
 
-  defp database_opts(opts, repo, query) when query in @check_database do
-    database = get_database_and_version(repo)
+  defp database_opts(opts, repo, query, query_opts) when query in @check_database do
+    database = get_database_and_version(repo, query_opts)
     Keyword.merge(database, opts)
   end
 
-  defp database_opts(opts, _repo, _query), do: opts
+  defp database_opts(opts, _repo, _query, _query_opts), do: opts
 
   defp which_database(version) do
     if String.contains?(version, "mariadb") do

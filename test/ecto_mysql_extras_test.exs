@@ -1,10 +1,9 @@
 defmodule EctoMySQLExtrasTest do
   use ExUnit.Case
 
-  Logger.configure(level: :info)
-
   import EctoMySQLExtras.TestUtil
   import ExUnit.CaptureIO
+  import ExUnit.CaptureLog
 
   describe "queries" do
     test "returns all queries and info" do
@@ -38,6 +37,15 @@ defmodule EctoMySQLExtrasTest do
         assert length(result.columns) > 0
         assert result.columns == column_name_list(query_module.info())
       end
+    end
+
+    test "test query with logging enabled" do
+      logs =
+        capture_log(fn ->
+          EctoMySQLExtras.db_settings(EctoMySQLExtras.TestRepo, query_opts: [log: true])
+        end)
+
+      assert logs =~ "ECTO_MYSQL_EXTRAS: "
     end
 
     test "run index_size query with args" do
@@ -218,6 +226,20 @@ defmodule EctoMySQLExtrasTest do
         assert length(result.columns) > 0
         assert result.columns == column_name_list(query_module.info())
       end
+    end
+
+    @tag :distribution
+    test "run query with logging enabled", %{node_name: node_name} do
+      assert Node.connect(node_name)
+
+      logs =
+        capture_log(fn ->
+          EctoMySQLExtras.query(:db_settings, {EctoMySQLExtras.TestRepo, node_name},
+            query_opts: [log: true]
+          )
+        end)
+
+      assert logs =~ "ECTO_MYSQL_EXTRAS: "
     end
 
     @tag :distribution
