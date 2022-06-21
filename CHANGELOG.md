@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+* Support `query_opts` with `log` option to enable/disable logging (disabled by default)
 
 ## v0.4.2 (2022-05-09)
 ### Changed
