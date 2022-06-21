@@ -66,6 +66,11 @@ This will return a `%MyXQL.Result{}` struct. If you want to display it in a more
 EctoMySQLExtras.plugins(MyApp.Repo, format: :ascii)
 ```
 
+By default query logging is disabled, to enable logging you can do the following:
+```elixir
+EctoMySQLExtras.plugins(MyApp.Repo, query_opts: [log: true])
+```
+
 To view all available queries:
 
 ```elixir
