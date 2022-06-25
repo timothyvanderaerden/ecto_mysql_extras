@@ -360,9 +360,9 @@ Shows the ratio of redo log contention. A good ratio value should stay below 1.
 Check `wait_counter` and if it continues to increase then it is a strong indicator that the InnoDB buffer pool is too small.
 It can also mean that the disks are too slow and cannot sustain the disk IO, perhaps due to peak write load.
 
-## Note
-
-Some queries use the `information_schema` table which can cause performance issues when executing on a busy system. Use the `performance_schema` where possible, depending on the version and database this might not be available.
+> #### Note {: .info}
+>
+> Some queries use the `information_schema` table which can cause performance issues when executing on a busy system. Use the `performance_schema` where possible, depending on the version and database this might not be available.
 
 ## Ecto MySQL Extras differences
 
