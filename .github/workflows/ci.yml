@@ -175,16 +175,13 @@ jobs:
             "mariadb:10.5",
             "mariadb:10.6",
           ]
-        include:
-          - pair:
-              elixir: "1.12"
-              otp: 23
-          - pair:
-              elixir: "1.13"
-              otp: 24
-          - pair:
-              elixir: "1.14"
-              otp: 25
+        version:
+          [
+            { otp: "23", elixir: "1.12" },
+            { otp: "24", elixir: "1.13" },
+            { otp: "25", elixir: "1.14" },
+          ]
+
     env:
       MIX_ENV: test
     services:
@@ -215,8 +212,8 @@ jobs:
       - name: Setup Elixir
         uses: erlef/setup-beam@v1
         with:
-          otp-version: ${{ matrix.pair.otp }}
-          elixir-version: ${{ matrix.pair.elixir }}
+          otp-version: ${{ matrix.version.otp }}
+          elixir-version: ${{ matrix.version.elixir }}
 
       - name: Retrieve dependencies cache
         uses: actions/cache@v3
