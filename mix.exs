@@ -34,12 +34,7 @@ defmodule EctoMySQLExtras.MixProject do
 
   defp dialyzer() do
     [
-      plt_add_apps: [
-        :table_rex,
-        :phoenix,
-        :phoenix_live_view,
-        :phoenix_live_dashboard
-      ]
+      plt_add_apps: [:table_rex]
     ]
   end
 
