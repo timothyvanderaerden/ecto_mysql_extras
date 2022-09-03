@@ -160,7 +160,7 @@ jobs:
         run: mix dialyzer --no-check
 
   test:
-    name: Test ${{ matrix.db }} / OTP ${{ matrix.pair.otp }} / Elixir ${{ matrix.pair.elixir }}
+    name: Test ${{ matrix.db }} / OTP ${{ matrix.version.otp }} / Elixir ${{ matrix.version.elixir }}
     runs-on: ubuntu-latest
     needs: dialyzer
     strategy:
@@ -222,7 +222,7 @@ jobs:
           path: |
             deps
             _build
-          key: ${{ runner.os }}-${{ matrix.pair.otp }}-${{ matrix.pair.elixir }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+          key: ${{ runner.os }}-${{ matrix.version.otp }}-${{ matrix.version.elixir }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
 
       - name: Run tests
         run: mix test
