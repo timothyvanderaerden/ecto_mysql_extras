@@ -149,7 +149,7 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
 
       - name: Dialyzer
-        run: mix dialyzer --no-check
+        run: mix dialyzer --no-check --format github
 
   test:
     name: Test ${{ matrix.db }} / OTP ${{ matrix.otp }} / Elixir ${{ matrix.elixir }}
