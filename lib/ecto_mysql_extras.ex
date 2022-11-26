@@ -17,6 +17,7 @@ defmodule EctoMySQLExtras do
   @type repo() :: module() | {module(), node()}
 
   @check_database [
+    :connections,
     :db_settings,
     :db_status,
     :dirty_pages_ratio,
@@ -31,6 +32,7 @@ defmodule EctoMySQLExtras do
   @spec queries(repo()) :: map()
   def queries(_repo \\ nil) do
     %{
+      connections: EctoMySQLExtras.Connections,
       db_settings: EctoMySQLExtras.DbSettings,
       db_status: EctoMySQLExtras.DbStatus,
       dirty_pages_ratio: EctoMySQLExtras.DirtyPagesRatio,
@@ -112,6 +114,9 @@ defmodule EctoMySQLExtras do
 
     which_database(version) ++ which_version(version)
   end
+
+  @spec connections(repo(), keyword()) :: :ok | MyXQL.Result.t()
+  def connections(repo, opts \\ []), do: query(:connections, repo, opts)
 
   @spec db_settings(repo(), keyword()) :: :ok | MyXQL.Result.t()
   def db_settings(repo, opts \\ []), do: query(:db_settings, repo, opts)
