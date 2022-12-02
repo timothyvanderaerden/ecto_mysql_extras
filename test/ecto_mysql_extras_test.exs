@@ -140,6 +140,8 @@ defmodule EctoMySQLExtrasTest do
   # but we care about the query input itself.
   describe "database specific" do
     test "mysql" do
+      assert EctoMySQLExtras.Connections.query(db: :mysql) =~ "performance_schema"
+
       assert EctoMySQLExtras.DbSettings.query(db: :mysql) =~ "performance_schema"
 
       assert EctoMySQLExtras.DbStatus.query(db: :mysql) =~ "performance_schema"
@@ -174,6 +176,8 @@ defmodule EctoMySQLExtrasTest do
     end
 
     test "mariadb" do
+      assert EctoMySQLExtras.Connections.query(db: :mariadb) =~ "information_schema"
+
       assert EctoMySQLExtras.DbSettings.query(db: :mariadb) =~ "information_schema"
 
       assert EctoMySQLExtras.DbStatus.query(db: :mariadb, major_version: 10, minor_version: 5) =~

@@ -77,6 +77,23 @@ To view all available queries:
 EctoMySQLExtras.queries()
 ```
 
+### `connections`
+
+```
+EctoMySQLExtras.connections(MyApp.Repo, format: :ascii)
+
++-------------------------------------------------------------------------------------+
+|                                  Active Connections                                 |
++-----+------+-----------------+-------+---------+------+----------------------+------+
+| id  | user | host            | db    | command | time | state                | info |
++-----+------+-----------------+-------+---------+------+----------------------+------+
+| 466 | root | localhost:49864 | my_db | Sleep   | 1    |                      |      |
+| 465 | root | localhost:49854 | my_db | Sleep   | 1    |                      |      |
+(truncated results for brevity)
+```
+
+Shows all active connections.
+
 ### `db_settings`
 
 ```
