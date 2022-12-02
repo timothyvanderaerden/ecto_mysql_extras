@@ -24,6 +24,7 @@ jobs:
     name: Setup / OTP ${{ matrix.pair.otp }} / Elixir ${{ matrix.pair.elixir }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         include:
           - pair:
