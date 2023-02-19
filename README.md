@@ -5,7 +5,7 @@
 [![Module Version](https://img.shields.io/hexpm/v/ecto_mysql_extras.svg)](https://hex.pm/packages/ecto_mysql_extras)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/ecto_mysql_extras/)
 [![Total Download](https://img.shields.io/hexpm/dt/ecto_mysql_extras.svg)](https://hex.pm/packages/ecto_mysql_extras)
-[![License](https://img.shields.io/hexpm/l/ecto_mysql_extras.svg)](https://github.com/timothyvanderaerden/ecto_mysql_extras/blob/master/LICENSE)
+[![License](https://img.shields.io/hexpm/l/ecto_mysql_extras.svg)](https://github.com/timothyvanderaerden/ecto_mysql_extras/blob/main/LICENSE)
 [![Last Updated](https://img.shields.io/github/last-commit/timothyvanderaerden/ecto_mysql_extras.svg)](https://github.com/timothyvanderaerden/ecto_mysql_extras/commits/main)
 
 This library provides performance insight information on MySQL (and MariaDB) databases.
