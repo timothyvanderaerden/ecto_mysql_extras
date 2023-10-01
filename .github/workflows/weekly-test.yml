@@ -70,7 +70,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
           MYSQL_ROOT_HOST: "%"
         options: >-
-          --health-cmd="mysqladmin ping"
+          --health-cmd="${{ matrix.db == 'mysql:latest' && 'mysqladmin ping' || 'healthcheck.sh --connect --innodb_initialized' }}"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
