@@ -179,8 +179,6 @@ jobs:
             "mariadb:10.5",
             "mariadb:10.6",
             "mariadb:10.11",
-            "mariadb:11.0",
-            "mariadb:11.1"
           ]
         version:
           [
@@ -235,11 +233,76 @@ jobs:
       - name: Run tests
         run: mix test
 
+  test_mariadb_11:
+    name: Test ${{ matrix.db }} / OTP ${{ matrix.version.otp }} / Elixir ${{ matrix.version.elixir }}
+    runs-on: ubuntu-20.04
+    needs: dialyzer
+    strategy:
+      fail-fast: false
+      matrix:
+        db:
+          [
+            "mariadb:11.0",
+            "mariadb:11.1",
+          ]
+        version:
+          [
+            { otp: "23", elixir: "1.12" },
+            { otp: "24", elixir: "1.13" },
+            { otp: "25", elixir: "1.14" },
+            { otp: "26", elixir: "1.15" },
+          ]
+
+    env:
+      MIX_ENV: test
+    services:
+      database:
+        image: ${{ matrix.db }}
+        env:
+          MYSQL_USER: ${{ env.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+          MYSQL_ROOT_HOST: "%"
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 3306:3306
+
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v4
+
+      - name: Initialize database
+        run: |
+          mysql -uroot -p${{ env.MYSQL_ROOT_PASSWORD }} -h127.0.0.1 < docker/init/init.sql
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ matrix.version.otp }}
+          elixir-version: ${{ matrix.version.elixir }}
+
+      - name: Retrieve dependencies cache
+        uses: actions/cache@v3
+        id: mix-cache
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-${{ matrix.version.otp }}-${{ matrix.version.elixir }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+      - name: Run tests
+        run: mix test
+
   test_coverage:
     name: Test Coverage / OTP ${{ matrix.otp }} / Elixir ${{ matrix.elixir }}
     runs-on: ubuntu-20.04
     if: ${{ github.actor != 'dependabot[bot]' }}
-    needs: [test]
+    needs: [test, test_mariadb_11]
     strategy:
       fail-fast: false
       matrix:
@@ -249,7 +312,7 @@ jobs:
       MIX_ENV: test
     services:
       mysql:
-        image: mysql:8.0
+        image: mysql:8.1
         env:
           MYSQL_USER: ${{ env.MYSQL_USER }}
           MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
