@@ -19,8 +19,8 @@ Currently only `InnoDB` is supported, other engines may work but not all queries
 
 The following databases are supported:
 
-* MySQL >= 5.7, <= 8.0
-* MariaDB >= 10.4, <= 10.11
+* MySQL >= 5.7, <= 8.1
+* MariaDB >= 10.4, <= 11.1
 
 Newer version are tested every week to check for any compatibility issues.
 
