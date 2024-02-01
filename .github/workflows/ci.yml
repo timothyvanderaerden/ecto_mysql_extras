@@ -53,7 +53,7 @@ jobs:
           elixir-version: ${{matrix.pair.elixir}}
 
       - name: Retrieve dependencies cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: mix-cache
         with:
           path: |
@@ -92,7 +92,7 @@ jobs:
           elixir-version: ${{ matrix.elixir }}
 
       - name: Retrieve dependencies cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: mix-cache
         with:
           path: |
@@ -123,7 +123,7 @@ jobs:
           elixir-version: ${{ matrix.elixir }}
 
       - name: Retrieve dependencies cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: mix-cache
         with:
           path: |
@@ -155,7 +155,7 @@ jobs:
           elixir-version: ${{ matrix.elixir }}
 
       - name: Retrieve dependencies cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: mix-cache
         with:
           path: |
@@ -226,7 +226,7 @@ jobs:
           elixir-version: ${{ matrix.version.elixir }}
 
       - name: Retrieve dependencies cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: mix-cache
         with:
           path: |
@@ -292,7 +292,7 @@ jobs:
           elixir-version: ${{ matrix.version.elixir }}
 
       - name: Retrieve dependencies cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: mix-cache
         with:
           path: |
@@ -347,7 +347,7 @@ jobs:
           elixir-version: ${{ matrix.elixir }}
 
       - name: Retrieve dependencies cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: mix-cache
         with:
           path: |
