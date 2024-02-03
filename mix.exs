@@ -1,7 +1,7 @@
 defmodule EctoMySQLExtras.MixProject do
   use Mix.Project
 
-  @version "0.6.1"
+  @version "0.6.2"
   @source_url "https://github.com/timothyvanderaerden/ecto_mysql_extras"
 
   def project do

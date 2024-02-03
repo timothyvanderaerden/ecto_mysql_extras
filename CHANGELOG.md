@@ -5,9 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v0.6.2 (2024-02-03)
+## Changed
+* Relax `table_rex` version to `~> 3.1` or `~> 4.0`
+* Support MySQL 8.1
+* Support MariaDB 11.0 and 11.1
+* Drop MariaDB 10.9 and 10.10
+* Bump deps
+* Delete unused dependencies in `mix.lock`
+
 ## v0.6.1 (2023-07-29)
 ### Changed
-* Support Elixir v1.15
 * Bump deps
 * Drop MariaDB 10.3
 * Support MariaDB 10.9, 10.10, 10.11
@@ -31,7 +39,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v0.4.0 (2021-12-24)
 ### Added
-* Set Elixir to v1.13 (650da1e)
 * InnoDB Dirty pages ratio query #11
 * InnoDB Waits for checkpoint query #12
 * InnoDB Waits for redolog query #13
