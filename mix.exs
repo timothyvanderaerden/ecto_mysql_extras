@@ -66,7 +66,7 @@ defmodule EctoMySQLExtras.MixProject do
       {:myxql, "~> 0.5"},
 
       # Optional
-      {:table_rex, "~> 3.1", optional: true},
+      {:table_rex, "~> 4.0", optional: true},
 
       # Development
       {:credo, "~> 1.5", only: :dev, runtime: false},
