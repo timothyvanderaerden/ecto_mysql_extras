@@ -21,8 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        otp: ["26"]
-        elixir: ["1.16"]
+        otp: ["27"]
+        elixir: ["1.17"]
 
     steps:
       - name: Checkout commit
@@ -56,8 +56,8 @@ jobs:
       fail-fast: false
       matrix:
         db: ["mysql:latest", "mariadb:latest"]
-        otp: ["26"]
-        elixir: ["1.16"]
+        otp: ["27"]
+        elixir: ["1.17"]
     env:
       MIX_ENV: test
     services:

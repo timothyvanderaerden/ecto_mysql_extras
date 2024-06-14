@@ -42,6 +42,9 @@ jobs:
           - pair:
               elixir: "1.16"
               otp: 26
+          - pair:
+              elixir: "1.17"
+              otp: 27
 
     steps:
       - name: Checkout commit
@@ -78,8 +81,8 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        otp: ["26"]
-        elixir: ["1.16"]
+        otp: ["27"]
+        elixir: ["1.17"]
 
     steps:
       - name: Checkout commit
@@ -109,8 +112,8 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        otp: ["26"]
-        elixir: ["1.16"]
+        otp: ["27"]
+        elixir: ["1.17"]
 
     steps:
       - name: Checkout commit
@@ -141,8 +144,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        otp: ["26"]
-        elixir: ["1.16"]
+        otp: ["27"]
+        elixir: ["1.17"]
 
     steps:
       - name: Checkout commit
@@ -190,6 +193,7 @@ jobs:
             { otp: "25", elixir: "1.14" },
             { otp: "26", elixir: "1.15" },
             { otp: "26", elixir: "1.16" },
+            { otp: "27", elixir: "1.17" }
           ]
 
     env:
@@ -256,6 +260,7 @@ jobs:
             { otp: "25", elixir: "1.14" },
             { otp: "26", elixir: "1.15" },
             { otp: "26", elixir: "1.16" },
+            { otp: "27", elixir: "1.17" },
           ]
 
     env:
@@ -311,8 +316,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        otp: ["26"]
-        elixir: ["1.16"]
+        otp: ["27"]
+        elixir: ["1.17"]
     env:
       MIX_ENV: test
     services:
