@@ -180,7 +180,6 @@ jobs:
             "mariadb:10.5",
             "mariadb:10.6",
             "mariadb:10.11",
-            "mariadb:11.4"
           ]
         version:
           [
@@ -245,8 +244,7 @@ jobs:
       matrix:
         db:
           [
-            "mariadb:11.0",
-            "mariadb:11.1",
+            "mariadb:11.4",
           ]
         version:
           [
@@ -316,7 +314,7 @@ jobs:
       MIX_ENV: test
     services:
       mysql:
-        image: mysql:8.1
+        image: mysql:8.4
         env:
           MYSQL_USER: ${{ env.MYSQL_USER }}
           MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
