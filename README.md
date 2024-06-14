@@ -17,12 +17,12 @@ This library is an optional dependency of [Phoenix.LiveDashboard](https://hexdoc
 
 Currently only `InnoDB` is supported, other engines may work but not all queries will return all or correct data.
 
-The following databases are supported:
+The following databases are tested against:
 
-* MySQL >= 5.7, <= 8.1
-* MariaDB >= 10.4, <= 11.1
+* MySQL >= 8.0, <= 8.4
+* MariaDB >= 10.5, <= 11.4
 
-Newer version are tested every week to check for any compatibility issues.
+Older version may work but are not tested, newer version are tested every week to check for any compatibility issues.
 
 [![Test latest DB weekly](https://github.com/timothyvanderaerden/ecto_mysql_extras/actions/workflows/weekly-test.yml/badge.svg)](https://github.com/timothyvanderaerden/ecto_mysql_extras/actions/workflows/weekly-test.yml)
 
