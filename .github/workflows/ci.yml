@@ -28,9 +28,6 @@ jobs:
       matrix:
         include:
           - pair:
-              elixir: "1.12"
-              otp: 23
-          - pair:
               elixir: "1.13"
               otp: 24
           - pair:
@@ -188,7 +185,6 @@ jobs:
           ]
         version:
           [
-            { otp: "23", elixir: "1.12" },
             { otp: "24", elixir: "1.13" },
             { otp: "25", elixir: "1.14" },
             { otp: "26", elixir: "1.15" },
@@ -255,7 +251,6 @@ jobs:
           ]
         version:
           [
-            { otp: "23", elixir: "1.12" },
             { otp: "24", elixir: "1.13" },
             { otp: "25", elixir: "1.14" },
             { otp: "26", elixir: "1.15" },
