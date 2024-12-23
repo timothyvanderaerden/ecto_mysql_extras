@@ -36,6 +36,13 @@ defmodule EctoMySQLExtras.LongRunningQueries do
 
     query_db_specific =
       if args[:db] == :mysql do
+        from =
+          if String.starts_with?(args[:version], "5.7.") do
+            "information_schema.PROCESSLIST"
+          else
+            "performance_schema.processlist"
+          end
+
         """
         SELECT
           ID AS `id`,
@@ -45,7 +52,7 @@ defmodule EctoMySQLExtras.LongRunningQueries do
           TIME AS `duration`,
           INFO AS `query`,
           NULL AS `memory_used`
-        FROM performance_schema.processlist
+        FROM #{from}
         WHERE DB = DATABASE()
         AND COMMAND <> 'Sleep'
         AND TIME > #{args[:threshold] / 1000}
