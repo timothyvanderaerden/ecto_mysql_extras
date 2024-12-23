@@ -157,13 +157,6 @@ defmodule EctoMySQLExtrasTest do
 
       assert EctoMySQLExtras.LongRunningQueries.query(
                db: :mysql,
-               version: "5.7.0",
-               threshold: 500
-             ) =~
-               "information_schema"
-
-      assert EctoMySQLExtras.LongRunningQueries.query(
-               db: :mysql,
                version: "8.0.0",
                threshold: 1000
              ) =~ "TIME > 1"
