@@ -24,3 +24,15 @@ services:
       - "3308:3306"
     volumes:
       - ./docker/init:/docker-entrypoint-initdb.d
+
+  mariadb11:
+    image: mariadb:11
+    environment:
+      MYSQL_USER: "mysql"
+      MYSQL_PASSWORD: "mysql"
+      MYSQL_DATABASE: "ecto_mysql_extras_test"
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    ports:
+      - "3309:3306"
+    volumes:
+      - ./docker/init:/docker-entrypoint-initdb.d
