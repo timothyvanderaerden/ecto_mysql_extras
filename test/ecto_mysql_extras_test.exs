@@ -259,7 +259,7 @@ defmodule EctoMySQLExtrasTest do
       node_name = :"nonexisting@127.0.0.1"
 
       assert_raise RuntimeError,
-                   "cannot send query to remote node #{inspect(node_name)}. Reason: :noconnection",
+                   "cannot send query to remote node #{inspect(node_name)}. Reason: {:erpc, :noconnection}",
                    fn ->
                      EctoMySQLExtras.query(:plugins, {EctoMySQLExtras.TestRepo, node_name})
                    end
