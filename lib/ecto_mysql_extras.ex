@@ -88,13 +88,15 @@ defmodule EctoMySQLExtras do
   end
 
   defp query!({repo, node}, query, query_opts) do
-    case :rpc.call(node, repo, :query!, [query, [], query_opts]) do
-      {:badrpc, {:EXIT, {:undef, _}}} ->
+    try do
+      :erpc.call(node, repo, :query!, [query, [], query_opts])
+    catch
+      _, {:exception, :undef, _} ->
         raise "repository is not defined on remote node"
 
-      {:badrpc, error} ->
+      _, error ->
         raise "cannot send query to remote node #{inspect(node)}. Reason: #{inspect(error)}"
-
+    else
       result ->
         result
     end
