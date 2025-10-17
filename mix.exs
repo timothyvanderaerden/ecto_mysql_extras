@@ -14,7 +14,6 @@ defmodule EctoMySQLExtras.MixProject do
       name: "Ecto MySQL Extras",
       description: "Ecto MySQL (and MariaDB) database performance insights.",
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: preferred_cli_env(),
       dialyzer: dialyzer(),
       package: package(),
       docs: docs(),
@@ -22,13 +21,15 @@ defmodule EctoMySQLExtras.MixProject do
     ]
   end
 
-  defp preferred_cli_env() do
+  def cli() do
     [
-      coveralls: :test,
-      "coveralls.detail": :test,
-      "coveralls.post": :test,
-      "coveralls.html": :test,
-      "coveralls.json": :test
+      preferred_envs: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test,
+        "coveralls.json": :test
+      ]
     ]
   end
 
