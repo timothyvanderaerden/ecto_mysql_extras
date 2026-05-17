@@ -34,7 +34,7 @@ defmodule EctoMySQLExtrasTest do
 
         result = EctoMySQLExtras.query(query_name, EctoMySQLExtras.TestRepo)
 
-        assert length(result.columns) > 0
+        refute Enum.empty?(result.columns)
         assert result.columns == column_name_list(query_module.info())
       end
     end
@@ -51,7 +51,7 @@ defmodule EctoMySQLExtrasTest do
     test "run index_size query with args" do
       result = EctoMySQLExtras.index_size(EctoMySQLExtras.TestRepo, args: [table: "test"])
 
-      assert length(result.columns) > 0
+      refute Enum.empty?(result.columns)
       assert result.columns == column_name_list(EctoMySQLExtras.IndexSize.info())
     end
 
@@ -59,35 +59,35 @@ defmodule EctoMySQLExtrasTest do
       result =
         EctoMySQLExtras.long_running_queries(EctoMySQLExtras.TestRepo, args: [threshold: 1000])
 
-      assert length(result.columns) > 0
+      refute Enum.empty?(result.columns)
       assert result.columns == column_name_list(EctoMySQLExtras.LongRunningQueries.info())
     end
 
     test "run records_rank query with args" do
       result = EctoMySQLExtras.records_rank(EctoMySQLExtras.TestRepo, args: [table: "test"])
 
-      assert length(result.columns) > 0
+      refute Enum.empty?(result.columns)
       assert result.columns == column_name_list(EctoMySQLExtras.RecordsRank.info())
     end
 
     test "run table_indexes_size query with args" do
       result = EctoMySQLExtras.table_indexes_size(EctoMySQLExtras.TestRepo, args: [table: "test"])
 
-      assert length(result.columns) > 0
+      refute Enum.empty?(result.columns)
       assert result.columns == column_name_list(EctoMySQLExtras.TableIndexesSize.info())
     end
 
     test "run table_size query with args" do
       result = EctoMySQLExtras.table_size(EctoMySQLExtras.TestRepo, args: [table: "test"])
 
-      assert length(result.columns) > 0
+      refute Enum.empty?(result.columns)
       assert result.columns == column_name_list(EctoMySQLExtras.TableSize.info())
     end
 
     test "run total_table_size query with args" do
       result = EctoMySQLExtras.total_table_size(EctoMySQLExtras.TestRepo, args: [table: "test"])
 
-      assert length(result.columns) > 0
+      refute Enum.empty?(result.columns)
       assert result.columns == column_name_list(EctoMySQLExtras.TotalTableSize.info())
     end
   end
@@ -227,7 +227,7 @@ defmodule EctoMySQLExtrasTest do
 
         result = EctoMySQLExtras.query(query_name, {EctoMySQLExtras.TestRepo, node_name})
 
-        assert length(result.columns) > 0
+        refute Enum.empty?(result.columns)mpty?(result.rows)
         assert result.columns == column_name_list(query_module.info())
       end
     end
