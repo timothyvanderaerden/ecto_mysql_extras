@@ -227,7 +227,7 @@ defmodule EctoMySQLExtrasTest do
 
         result = EctoMySQLExtras.query(query_name, {EctoMySQLExtras.TestRepo, node_name})
 
-        refute Enum.empty?(result.columns)mpty?(result.rows)
+        refute Enum.empty?(result.columns)
         assert result.columns == column_name_list(query_module.info())
       end
     end
